@@ -1,4 +1,4 @@
 .idea/
 target/
-netcdf/
+netcdf/merra/tavg1_2d_rad_Nx/T/svc_MERRA2_100.inst3_3d_asm_Np.19810110.nc4
 *.iml
