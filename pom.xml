@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2016 by Antonio Rodriges, rodriges@wikience.org
+-->
+
+<!--
+    POM file.
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.wikience</groupId>
+    <artifactId>RServer</artifactId>
+    <version>1-DEMO</version>
+
+    <description>A sample Java WRRS (Web Raw Raster Service) demo-server.</description>
+    <url>http://www.wikience.org/</url>
+
+    <developers>
+        <developer>
+            <id>raro</id>
+            <name>Antonio Rodriges</name>
+            <email>rodriges@wikience.org</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>GNU Affero General Public License, Version 3.0</name>
+            <url>http://www.gnu.org/licenses/agpl.html</url>
+        </license>
+    </licenses>
+
+    <repositories>
+        <repository>
+            <id>unidata-releases</id>
+            <name>Unidata Releases</name>
+            <url>https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <netcdf.version>4.6.6</netcdf.version>
+        <protobuf.version>2.5.0</protobuf.version>
+        <netty.version>4.0.33.Final</netty.version>
+        <bson.version>3.2.1</bson.version>
+        <json.version>20140107</json.version>
+        <!--<slf4j.version>1.7.0</slf4j.version> -->
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mongodb/bson -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>bson</artifactId>
+            <version>${bson.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json.version}</version>
+        </dependency>
+
+        <!-- http://www.unidata.ucar.edu/software/thredds/current/netcdf-java/reference/BuildDependencies.html -->
+        <dependency>
+            <groupId>edu.ucar</groupId>
+            <artifactId>cdm</artifactId>
+            <version>${netcdf.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--
+                <dependency>
+                  <groupId>org.slf4j</groupId>
+                  <artifactId>slf4j-jdk18</artifactId>
+                  <version>${slf4j.version}</version>
+                  <scope>runtime</scope>
+                </dependency>
+        -->
+        <dependency>
+            <groupId>edu.ucar</groupId>
+            <artifactId>bufr</artifactId>
+            <version>${netcdf.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.ucar</groupId>
+            <artifactId>clcommon</artifactId>
+            <version>${netcdf.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.ucar</groupId>
+            <artifactId>grib</artifactId>
+            <version>${netcdf.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.ucar</groupId>
+            <artifactId>netcdf4</artifactId>
+            <version>${netcdf.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.ucar</groupId>
+            <artifactId>opendap</artifactId>
+            <version>${netcdf.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.ucar</groupId>
+            <artifactId>visadCdm</artifactId>
+            <version>${netcdf.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.2</version>
+                <!-- nothing here -->
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-executable-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <finalName>RServer-${project.version}-all</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <archive>
+                                <manifest>
+                                    <mainClass>io.netty.websocket.WebSocketServer</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

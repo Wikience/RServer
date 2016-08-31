@@ -1,0 +1,99 @@
+﻿
+<group name="merra">
+
+	
+    <group name="tavg1_2d_rad_Nx">
+        <group name="T">
+            <name>Temperature</name>
+            <icon>temperature.png</icon>
+            <dates>
+                <start>20.12.1980</start>
+                <end>10.01.1981</end>
+            </dates>
+            <missingdate>
+                <start>26.12.1980</start>
+                <end>29.12.1980</end>
+            </missingdate>
+        </group>
+    </group>
+	
+	 <group name="tavg1_2d_slv_Nx">
+        <group name="T10M">
+            <name>Temperature</name>
+            <icon>temperature.png</icon>
+            <dates>
+                <start>01.01.1980</start>
+                <end>30.04.1980</end>
+            </dates>
+        </group>
+    </group>
+	
+	<group name="tavg1_2d_slv_Nx">
+        <group name="T2M">
+            <name>Temperature</name>
+            <icon>temperature.png</icon>
+            <dates>
+                <start>01.07.2009</start>
+                <end>22.07.2009</end>
+            </dates>
+			<missingdate>
+                <start>16.07.2009</start>
+                <end>18.07.2009</end>
+            </missingdate>
+        </group>
+    </group>
+
+    <group name="tavg1_2d_rad_Nx">
+        <group name="QV">
+            <name>Precipitation</name>
+            <icon>precipitation.png</icon>
+            <dates>
+                <start>01.01.2005</start>
+                <end>10.01.2005</end>
+            </dates>
+			
+        </group>
+    </group>
+	
+	<group name="tavg1_2d_rad_Nx">
+        <group name="O3">
+            <name>Ozone</name>
+            <icon>ozone.png</icon>
+            <dates>
+                <start>15.01.2000</start>
+                <end>09.02.2000</end>
+            </dates>
+			<missingdate>
+                <start>26.01.2000</start>
+                <end>29.01.2000</end>
+            </missingdate>
+        </group>
+    </group>
+	
+	
+	<group name="tavg1_2d_rad_Nx">
+        <group name="PS">
+            <name>Pressure</name>
+            <icon>pressure.png</icon>
+            <dates>
+                <start>20.09.2000</start>
+                <end>10.10.2000</end>
+            </dates>
+			<missingdate>
+                <start>22.09.2000</start>
+                <end>22.09.2000</end>
+            </missingdate>
+        </group>
+    </group>
+	
+	<group name="tavg1_2d_rad_Nx">
+        <group name="U">
+            <name>Wind</name>
+            <icon>wind.png</icon>
+            <dates>
+                <start>01.01.2005</start>
+                <end>10.01.2005</end>
+            </dates>
+        </group>
+    </group>
+</group>
