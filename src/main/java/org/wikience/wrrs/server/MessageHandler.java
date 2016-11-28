@@ -77,8 +77,6 @@ public class MessageHandler  {
 
         rrB.setResponseStatus(statB.build());
         response = rrB.build().toByteArray();
-
-        return;
     }
 
     public byte[] getErrorBlob() {
@@ -90,8 +88,7 @@ public class MessageHandler  {
     }
 
     public void sendMessage(byte[] msg) {
-        ctx.channel().writeAndFlush(
-                new BinaryWebSocketFrame(Unpooled.wrappedBuffer(msg)));
+        ctx.writeAndFlush(new BinaryWebSocketFrame(Unpooled.wrappedBuffer(msg)));
     }
 
     public void serveConnectRequest(Attribute<Boolean> attr) throws InvalidProtocolBufferException {
