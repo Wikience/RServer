@@ -1,0 +1,21 @@
+package org.wikience.wrrs.io;
+
+import org.wikience.wrrs.wrrsprotobuf.RProtocol;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * (c) Antonio Rodriges, rodriges@wikience.org
+ */
+class GTIFFReaderTest {
+    public final String FILE_PATH = "d:\\RS_DATA\\Landsat\\8\\L1\\sr\\_\\179\\021\\LC81790212015146-SC20150806075046\\LC81790212015146LGN00_sr_band3.tif";
+
+    @org.junit.jupiter.api.Test
+    void asPNG() {
+        RProtocol.TLatLonBox.Builder builder = RProtocol.TLatLonBox.newBuilder();
+        builder.setLatitudeNorth(55.7).setLongitudeWest(37.5);
+        GTIFFReader reader = new GTIFFReader(FILE_PATH, builder.build());
+        reader.asPNG();
+        reader.asGZIP();
+    }
+}
