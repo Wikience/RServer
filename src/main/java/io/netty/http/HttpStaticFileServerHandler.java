@@ -242,6 +242,11 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
 
         GTIFFReader reader = new GTIFFReader(FILE_PATH, builder.build());
         byte[] png = reader.asPNG();
+
+        RProtocol.ResponseStatistics statistics = reader.getStatistics();
+        System.err.println("[\"read\",\"toRGB\",\"toPNG\"");
+        System.err.println(String.format("[%d,%d,%d]", statistics.getFileReadMs(), statistics.getToRGBMs(), statistics.getToPNGMs()));
+
         ChunkedStream stream = new ChunkedStream(new ByteArrayInputStream(png));
 
 //      sendError(ctx, NOT_FOUND);
