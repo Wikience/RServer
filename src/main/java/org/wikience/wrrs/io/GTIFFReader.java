@@ -19,9 +19,8 @@ import org.wikience.wrrs.wrrsprotobuf.RProtocol;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.ByteBuffer;
 
 /**
  * (c) Antonio Rodriges, rodriges@wikience.org
@@ -50,7 +49,6 @@ public class GTIFFReader {
             {166, 61, 6},
             {153, 52, 4}
     };
-
     public final double COLOR_INDEX[] = {
             0,
             98.825,
@@ -74,55 +72,94 @@ public class GTIFFReader {
             610.703,
             639.141
     };
-
     private final String path;
     private final RProtocol.TLatLonBox latLonBox;
+    public boolean TEST_MODE = false;
     private int y = 4000;
     private int x = 4000;
-    private int h = 512;
-    private int w = 512;
-    private Raster raster;
-    private byte[] newByteArray;
-    private BufferedImage outImage;
+
+    private Raster inputRaster;
+    private BufferedImage outputImage;
+    private RProtocol.ResponseStatistics.Builder statisticsBuilder = RProtocol.ResponseStatistics.newBuilder();
 
     public GTIFFReader(String path, RProtocol.TLatLonBox latLonBox) {
         this.path = path;
         this.latLonBox = latLonBox;
     }
 
+    public RProtocol.ResponseStatistics getStatistics() {
+        return statisticsBuilder.build();
+    }
+
     public byte[] asPNG() {
         read();
         toRGB();
 
+        long start = System.currentTimeMillis();
+
+        ByteArrayOutputStream oStream = null;
         try {
-            ImageIO.write(outImage, "png", new File("image2.png"));
+            oStream = new ByteArrayOutputStream();
+            ImageIO.write(outputImage, "png", oStream);
+            if (TEST_MODE) {
+                ImageIO.write(outputImage, "png", new File("image2.png"));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return null;
+        long end = System.currentTimeMillis();
+        byte[] result = oStream.toByteArray();
+        statisticsBuilder.setToPNGMs(end - start);
+
+        return result;
     }
 
-    public void asGZIP() {
+    public byte[] asGZIP() {
         read();
-        toRGB();
 
-        File zlib_compressed = new File("image2.cmp");
+        long start = System.currentTimeMillis();
+
+        DataBuffer dataBuffer = inputRaster.getDataBuffer();
+
+        ByteBuffer byteBuffer = ByteBuffer.allocate(dataBuffer.getSize()*2); // SHORT or int16
+        for (int i = 0; i < dataBuffer.getSize(); i++) {
+            short value = (short)dataBuffer.getElem(i);
+            byteBuffer.put((byte)(value & 0xFF));
+            byteBuffer.put((byte)((value >> 8) & 0xFF));
+        }
+        byte[] outArray = byteBuffer.array();
+
         DeflaterOutputStream deflaterOutputStream;
+        ByteArrayOutputStream oStream = null;
         try {
             Deflater deflater = new Deflater(JZlib.Z_BEST_COMPRESSION);
-            deflaterOutputStream = new DeflaterOutputStream(new FileOutputStream(zlib_compressed), deflater);
-//            deflaterOutputStream = new DeflaterOutputStream(new FileOutputStream(zlib_compressed));
-            deflaterOutputStream.write(newByteArray, 0, newByteArray.length);
+            if (TEST_MODE) {
+                File zlib_compressed = new File("image2.cmp");
+                deflaterOutputStream = new DeflaterOutputStream(new FileOutputStream(zlib_compressed), deflater);
+                deflaterOutputStream.write(outArray, 0, outArray.length);
+                deflaterOutputStream.close();
+            }
+            oStream = new ByteArrayOutputStream();
+            deflaterOutputStream = new DeflaterOutputStream(oStream);
+            deflaterOutputStream.write(outArray, 0, outArray.length);
             deflaterOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        long end = System.currentTimeMillis();
+        byte [] result = oStream.toByteArray();
+        statisticsBuilder.setToZIPMs(end - start);
+
+        return result;
     }
 
     private void toRGB() {
-        DataBuffer origImage = raster.getDataBuffer();
-        newByteArray = new byte[w * h * 3]; // 3 bytes: RGB
+        long start = System.currentTimeMillis();
+
+        DataBuffer origImage = inputRaster.getDataBuffer();
+        byte [] newByteArray = new byte[inputRaster.getWidth() * inputRaster.getHeight() * 3]; // 3 bytes: RGB
 
         for (int i = 0; i < origImage.getSize(); i++) {
             setColor(origImage.getElem(i), newByteArray, i);
@@ -133,17 +170,22 @@ public class GTIFFReader {
         //3 bytes per pixel: red, green, blue
         WritableRaster raster = Raster.createInterleavedRaster(
                 buffer,
-                w, h,
-                3 * w,
+                inputRaster.getWidth(), inputRaster.getHeight(),
+                3 * inputRaster.getWidth(),
                 3,
                 new int[]{0, 1, 2},
                 (Point) null);
 
         ColorModel cm = new ComponentColorModel(ColorModel.getRGBdefault().getColorSpace(), false, true, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
-        outImage = new BufferedImage(cm, raster, true, null);
+        outputImage = new BufferedImage(cm, raster, true, null);
+
+        long end = System.currentTimeMillis();
+        statisticsBuilder.setToRGBMs(end - start);
     }
 
     private void read() {
+        long start = System.currentTimeMillis();
+
         GridCoverage2D grid;
         try {
             GeoTiffReader reader = new GeoTiffReader(new File(path));
@@ -154,8 +196,9 @@ public class GTIFFReader {
             GridCoordinates2D posGrid = gg.worldToGrid(posWorld);
             x = posGrid.getCoordinateValue(0);
             y = posGrid.getCoordinateValue(1);
-            Rectangle rectangle = new Rectangle(x, y, 512, 512);
-            raster = grid.getRenderedImage().getData(rectangle);
+            Rectangle rectangle = new Rectangle(x, y, latLonBox.getTileLonSize(), latLonBox.getTileLatSize());
+            inputRaster = grid.getRenderedImage().getData(rectangle);
+//            inputRaster = grid.getRenderedImage().getData();
         } catch (DataSourceException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -167,6 +210,9 @@ public class GTIFFReader {
         } catch (TransformException e) {
             e.printStackTrace();
         }
+
+        long end = System.currentTimeMillis();
+        statisticsBuilder.setFileReadMs(end - start);
     }
 
     private void setColor(int value, byte[] dst, int index) {

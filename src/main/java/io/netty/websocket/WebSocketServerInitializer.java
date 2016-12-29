@@ -38,7 +38,7 @@ class WebSocketServerInitializer extends ChannelInitializer<SocketChannel> {
         }
 
         pipeline.addLast(new HttpServerCodec());
-        pipeline.addLast(new HttpObjectAggregator(65536));
+        pipeline.addLast(new HttpObjectAggregator(Integer.MAX_VALUE));
         pipeline.addLast(new WebSocketServerHandler());
     }
 }

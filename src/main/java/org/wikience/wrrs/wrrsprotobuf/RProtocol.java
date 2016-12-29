@@ -1922,6 +1922,31 @@ public final class RProtocol {
      * </pre>
      */
     org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterDataOrBuilder getRasterDataOrBuilder();
+
+    /**
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+     *
+     * <pre>
+     * Server-side statistics
+     * </pre>
+     */
+    boolean hasStatistics();
+    /**
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+     *
+     * <pre>
+     * Server-side statistics
+     * </pre>
+     */
+    org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics getStatistics();
+    /**
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+     *
+     * <pre>
+     * Server-side statistics
+     * </pre>
+     */
+    org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatisticsOrBuilder getStatisticsOrBuilder();
   }
   /**
    * Protobuf type {@code org.wikience.wrrs.wrrsprotobuf.RasterResponse}
@@ -2055,6 +2080,19 @@ public final class RProtocol {
                 rasterData_ = subBuilder.buildPartial();
               }
               bitField0_ |= 0x00000020;
+              break;
+            }
+            case 58: {
+              org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000040) == 0x00000040)) {
+                subBuilder = statistics_.toBuilder();
+              }
+              statistics_ = input.readMessage(org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(statistics_);
+                statistics_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000040;
               break;
             }
           }
@@ -2310,6 +2348,39 @@ public final class RProtocol {
       return rasterData_;
     }
 
+    public static final int STATISTICS_FIELD_NUMBER = 7;
+    private org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics statistics_;
+    /**
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+     *
+     * <pre>
+     * Server-side statistics
+     * </pre>
+     */
+    public boolean hasStatistics() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+     *
+     * <pre>
+     * Server-side statistics
+     * </pre>
+     */
+    public org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics getStatistics() {
+      return statistics_;
+    }
+    /**
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+     *
+     * <pre>
+     * Server-side statistics
+     * </pre>
+     */
+    public org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatisticsOrBuilder getStatisticsOrBuilder() {
+      return statistics_;
+    }
+
     private void initFields() {
       responseStatus_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatus.getDefaultInstance();
       requestResponseMeta_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.RequestResponseMeta.getDefaultInstance();
@@ -2317,6 +2388,7 @@ public final class RProtocol {
       rasterAttributes_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterAttributes.getDefaultInstance();
       rasterDimensions_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterDimensions.getDefaultInstance();
       rasterData_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.getDefaultInstance();
+      statistics_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2348,6 +2420,9 @@ public final class RProtocol {
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeMessage(6, rasterData_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeMessage(7, statistics_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -2381,6 +2456,10 @@ public final class RProtocol {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(6, rasterData_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, statistics_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2501,6 +2580,7 @@ public final class RProtocol {
           getRasterAttributesFieldBuilder();
           getRasterDimensionsFieldBuilder();
           getRasterDataFieldBuilder();
+          getStatisticsFieldBuilder();
         }
       }
       private static Builder create() {
@@ -2545,6 +2625,12 @@ public final class RProtocol {
           rasterDataBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000020);
+        if (statisticsBuilder_ == null) {
+          statistics_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.getDefaultInstance();
+        } else {
+          statisticsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
 
@@ -2621,6 +2707,14 @@ public final class RProtocol {
         } else {
           result.rasterData_ = rasterDataBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        if (statisticsBuilder_ == null) {
+          result.statistics_ = statistics_;
+        } else {
+          result.statistics_ = statisticsBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2654,6 +2748,9 @@ public final class RProtocol {
         }
         if (other.hasRasterData()) {
           mergeRasterData(other.getRasterData());
+        }
+        if (other.hasStatistics()) {
+          mergeStatistics(other.getStatistics());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -3639,6 +3736,158 @@ public final class RProtocol {
         return rasterDataBuilder_;
       }
 
+      private org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics statistics_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics, org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.Builder, org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatisticsOrBuilder> statisticsBuilder_;
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+       *
+       * <pre>
+       * Server-side statistics
+       * </pre>
+       */
+      public boolean hasStatistics() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+       *
+       * <pre>
+       * Server-side statistics
+       * </pre>
+       */
+      public org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics getStatistics() {
+        if (statisticsBuilder_ == null) {
+          return statistics_;
+        } else {
+          return statisticsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+       *
+       * <pre>
+       * Server-side statistics
+       * </pre>
+       */
+      public Builder setStatistics(org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics value) {
+        if (statisticsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          statistics_ = value;
+          onChanged();
+        } else {
+          statisticsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+       *
+       * <pre>
+       * Server-side statistics
+       * </pre>
+       */
+      public Builder setStatistics(
+          org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.Builder builderForValue) {
+        if (statisticsBuilder_ == null) {
+          statistics_ = builderForValue.build();
+          onChanged();
+        } else {
+          statisticsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+       *
+       * <pre>
+       * Server-side statistics
+       * </pre>
+       */
+      public Builder mergeStatistics(org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics value) {
+        if (statisticsBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) == 0x00000040) &&
+              statistics_ != org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.getDefaultInstance()) {
+            statistics_ =
+              org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.newBuilder(statistics_).mergeFrom(value).buildPartial();
+          } else {
+            statistics_ = value;
+          }
+          onChanged();
+        } else {
+          statisticsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+       *
+       * <pre>
+       * Server-side statistics
+       * </pre>
+       */
+      public Builder clearStatistics() {
+        if (statisticsBuilder_ == null) {
+          statistics_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.getDefaultInstance();
+          onChanged();
+        } else {
+          statisticsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000040);
+        return this;
+      }
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+       *
+       * <pre>
+       * Server-side statistics
+       * </pre>
+       */
+      public org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.Builder getStatisticsBuilder() {
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return getStatisticsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+       *
+       * <pre>
+       * Server-side statistics
+       * </pre>
+       */
+      public org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatisticsOrBuilder getStatisticsOrBuilder() {
+        if (statisticsBuilder_ != null) {
+          return statisticsBuilder_.getMessageOrBuilder();
+        } else {
+          return statistics_;
+        }
+      }
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.ResponseStatistics statistics = 7;</code>
+       *
+       * <pre>
+       * Server-side statistics
+       * </pre>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics, org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.Builder, org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatisticsOrBuilder> 
+          getStatisticsFieldBuilder() {
+        if (statisticsBuilder_ == null) {
+          statisticsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics, org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.Builder, org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatisticsOrBuilder>(
+                  getStatistics(),
+                  getParentForChildren(),
+                  isClean());
+          statistics_ = null;
+        }
+        return statisticsBuilder_;
+      }
+
       // @@protoc_insertion_point(builder_scope:org.wikience.wrrs.wrrsprotobuf.RasterResponse)
     }
 
@@ -3678,6 +3927,23 @@ public final class RProtocol {
      * </pre>
      */
     int getRequestId();
+
+    /**
+     * <code>optional int32 flag = 2;</code>
+     *
+     * <pre>
+     * Used during unit tests
+     * </pre>
+     */
+    boolean hasFlag();
+    /**
+     * <code>optional int32 flag = 2;</code>
+     *
+     * <pre>
+     * Used during unit tests
+     * </pre>
+     */
+    int getFlag();
   }
   /**
    * Protobuf type {@code org.wikience.wrrs.wrrsprotobuf.RequestResponseMeta}
@@ -3734,6 +4000,11 @@ public final class RProtocol {
             case 8: {
               bitField0_ |= 0x00000001;
               requestId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              flag_ = input.readInt32();
               break;
             }
           }
@@ -3807,8 +4078,32 @@ public final class RProtocol {
       return requestId_;
     }
 
+    public static final int FLAG_FIELD_NUMBER = 2;
+    private int flag_;
+    /**
+     * <code>optional int32 flag = 2;</code>
+     *
+     * <pre>
+     * Used during unit tests
+     * </pre>
+     */
+    public boolean hasFlag() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int32 flag = 2;</code>
+     *
+     * <pre>
+     * Used during unit tests
+     * </pre>
+     */
+    public int getFlag() {
+      return flag_;
+    }
+
     private void initFields() {
       requestId_ = 0;
+      flag_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3826,6 +4121,9 @@ public final class RProtocol {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeInt32(1, requestId_);
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, flag_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -3838,6 +4136,10 @@ public final class RProtocol {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, requestId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, flag_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3958,6 +4260,8 @@ public final class RProtocol {
         super.clear();
         requestId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
+        flag_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -3990,6 +4294,10 @@ public final class RProtocol {
           to_bitField0_ |= 0x00000001;
         }
         result.requestId_ = requestId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.flag_ = flag_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4008,6 +4316,9 @@ public final class RProtocol {
         if (other == org.wikience.wrrs.wrrsprotobuf.RProtocol.RequestResponseMeta.getDefaultInstance()) return this;
         if (other.hasRequestId()) {
           setRequestId(other.getRequestId());
+        }
+        if (other.hasFlag()) {
+          setFlag(other.getFlag());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -4096,6 +4407,54 @@ public final class RProtocol {
       public Builder clearRequestId() {
         bitField0_ = (bitField0_ & ~0x00000001);
         requestId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int flag_ ;
+      /**
+       * <code>optional int32 flag = 2;</code>
+       *
+       * <pre>
+       * Used during unit tests
+       * </pre>
+       */
+      public boolean hasFlag() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int32 flag = 2;</code>
+       *
+       * <pre>
+       * Used during unit tests
+       * </pre>
+       */
+      public int getFlag() {
+        return flag_;
+      }
+      /**
+       * <code>optional int32 flag = 2;</code>
+       *
+       * <pre>
+       * Used during unit tests
+       * </pre>
+       */
+      public Builder setFlag(int value) {
+        bitField0_ |= 0x00000002;
+        flag_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 flag = 2;</code>
+       *
+       * <pre>
+       * Used during unit tests
+       * </pre>
+       */
+      public Builder clearFlag() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        flag_ = 0;
         onChanged();
         return this;
       }
@@ -5569,29 +5928,29 @@ public final class RProtocol {
     int getZoom();
 
     /**
-     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
      *
      * <pre>
      * Geographical area/region
      * </pre>
      */
-    boolean hasLatlonBox();
+    boolean hasLatLonBox();
     /**
-     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
      *
      * <pre>
      * Geographical area/region
      * </pre>
      */
-    org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox getLatlonBox();
+    org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox getLatLonBox();
     /**
-     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
      *
      * <pre>
      * Geographical area/region
      * </pre>
      */
-    org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBoxOrBuilder getLatlonBoxOrBuilder();
+    org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBoxOrBuilder getLatLonBoxOrBuilder();
   }
   /**
    * Protobuf type {@code org.wikience.wrrs.wrrsprotobuf.RequestParams}
@@ -5672,12 +6031,12 @@ public final class RProtocol {
             case 34: {
               org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.Builder subBuilder = null;
               if (((bitField0_ & 0x00000008) == 0x00000008)) {
-                subBuilder = latlonBox_.toBuilder();
+                subBuilder = latLonBox_.toBuilder();
               }
-              latlonBox_ = input.readMessage(org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.PARSER, extensionRegistry);
+              latLonBox_ = input.readMessage(org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom(latlonBox_);
-                latlonBox_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom(latLonBox_);
+                latLonBox_ = subBuilder.buildPartial();
               }
               bitField0_ |= 0x00000008;
               break;
@@ -5833,43 +6192,43 @@ public final class RProtocol {
     }
 
     public static final int LATLONBOX_FIELD_NUMBER = 4;
-    private org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox latlonBox_;
+    private org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox latLonBox_;
     /**
-     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
      *
      * <pre>
      * Geographical area/region
      * </pre>
      */
-    public boolean hasLatlonBox() {
+    public boolean hasLatLonBox() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
      *
      * <pre>
      * Geographical area/region
      * </pre>
      */
-    public org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox getLatlonBox() {
-      return latlonBox_;
+    public org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox getLatLonBox() {
+      return latLonBox_;
     }
     /**
-     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
      *
      * <pre>
      * Geographical area/region
      * </pre>
      */
-    public org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBoxOrBuilder getLatlonBoxOrBuilder() {
-      return latlonBox_;
+    public org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBoxOrBuilder getLatLonBoxOrBuilder() {
+      return latLonBox_;
     }
 
     private void initFields() {
       datasetId_ = "";
       timeInterval_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.TTimeInterval.getDefaultInstance();
       zoom_ = 0;
-      latlonBox_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.getDefaultInstance();
+      latLonBox_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -5894,7 +6253,7 @@ public final class RProtocol {
         output.writeInt32(3, zoom_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeMessage(4, latlonBox_);
+        output.writeMessage(4, latLonBox_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -5919,7 +6278,7 @@ public final class RProtocol {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, latlonBox_);
+          .computeMessageSize(4, latLonBox_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -6031,7 +6390,7 @@ public final class RProtocol {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getTimeIntervalFieldBuilder();
-          getLatlonBoxFieldBuilder();
+          getLatLonBoxFieldBuilder();
         }
       }
       private static Builder create() {
@@ -6050,10 +6409,10 @@ public final class RProtocol {
         bitField0_ = (bitField0_ & ~0x00000002);
         zoom_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        if (latlonBoxBuilder_ == null) {
-          latlonBox_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.getDefaultInstance();
+        if (latLonBoxBuilder_ == null) {
+          latLonBox_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.getDefaultInstance();
         } else {
-          latlonBoxBuilder_.clear();
+          latLonBoxBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
@@ -6103,10 +6462,10 @@ public final class RProtocol {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        if (latlonBoxBuilder_ == null) {
-          result.latlonBox_ = latlonBox_;
+        if (latLonBoxBuilder_ == null) {
+          result.latLonBox_ = latLonBox_;
         } else {
-          result.latlonBox_ = latlonBoxBuilder_.build();
+          result.latLonBox_ = latLonBoxBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -6135,8 +6494,8 @@ public final class RProtocol {
         if (other.hasZoom()) {
           setZoom(other.getZoom());
         }
-        if (other.hasLatlonBox()) {
-          mergeLatlonBox(other.getLatlonBox());
+        if (other.hasLatLonBox()) {
+          mergeLatLonBox(other.getLatLonBox());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -6465,139 +6824,139 @@ public final class RProtocol {
         return this;
       }
 
-      private org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox latlonBox_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.getDefaultInstance();
+      private org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox latLonBox_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox, org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.Builder, org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBoxOrBuilder> latlonBoxBuilder_;
+          org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox, org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.Builder, org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBoxOrBuilder> latLonBoxBuilder_;
       /**
-       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
        *
        * <pre>
        * Geographical area/region
        * </pre>
        */
-      public boolean hasLatlonBox() {
+      public boolean hasLatLonBox() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
        *
        * <pre>
        * Geographical area/region
        * </pre>
        */
-      public org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox getLatlonBox() {
-        if (latlonBoxBuilder_ == null) {
-          return latlonBox_;
+      public org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox getLatLonBox() {
+        if (latLonBoxBuilder_ == null) {
+          return latLonBox_;
         } else {
-          return latlonBoxBuilder_.getMessage();
+          return latLonBoxBuilder_.getMessage();
         }
       }
       /**
-       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
        *
        * <pre>
        * Geographical area/region
        * </pre>
        */
-      public Builder setLatlonBox(org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox value) {
-        if (latlonBoxBuilder_ == null) {
+      public Builder setLatLonBox(org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox value) {
+        if (latLonBoxBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          latlonBox_ = value;
+          latLonBox_ = value;
           onChanged();
         } else {
-          latlonBoxBuilder_.setMessage(value);
+          latLonBoxBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
        *
        * <pre>
        * Geographical area/region
        * </pre>
        */
-      public Builder setLatlonBox(
+      public Builder setLatLonBox(
           org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.Builder builderForValue) {
-        if (latlonBoxBuilder_ == null) {
-          latlonBox_ = builderForValue.build();
+        if (latLonBoxBuilder_ == null) {
+          latLonBox_ = builderForValue.build();
           onChanged();
         } else {
-          latlonBoxBuilder_.setMessage(builderForValue.build());
+          latLonBoxBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
        *
        * <pre>
        * Geographical area/region
        * </pre>
        */
-      public Builder mergeLatlonBox(org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox value) {
-        if (latlonBoxBuilder_ == null) {
+      public Builder mergeLatLonBox(org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox value) {
+        if (latLonBoxBuilder_ == null) {
           if (((bitField0_ & 0x00000008) == 0x00000008) &&
-              latlonBox_ != org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.getDefaultInstance()) {
-            latlonBox_ =
-              org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.newBuilder(latlonBox_).mergeFrom(value).buildPartial();
+              latLonBox_ != org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.getDefaultInstance()) {
+            latLonBox_ =
+              org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.newBuilder(latLonBox_).mergeFrom(value).buildPartial();
           } else {
-            latlonBox_ = value;
+            latLonBox_ = value;
           }
           onChanged();
         } else {
-          latlonBoxBuilder_.mergeFrom(value);
+          latLonBoxBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
        *
        * <pre>
        * Geographical area/region
        * </pre>
        */
-      public Builder clearLatlonBox() {
-        if (latlonBoxBuilder_ == null) {
-          latlonBox_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.getDefaultInstance();
+      public Builder clearLatLonBox() {
+        if (latLonBoxBuilder_ == null) {
+          latLonBox_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.getDefaultInstance();
           onChanged();
         } else {
-          latlonBoxBuilder_.clear();
+          latLonBoxBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       /**
-       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
        *
        * <pre>
        * Geographical area/region
        * </pre>
        */
-      public org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.Builder getLatlonBoxBuilder() {
+      public org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.Builder getLatLonBoxBuilder() {
         bitField0_ |= 0x00000008;
         onChanged();
-        return getLatlonBoxFieldBuilder().getBuilder();
+        return getLatLonBoxFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
        *
        * <pre>
        * Geographical area/region
        * </pre>
        */
-      public org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBoxOrBuilder getLatlonBoxOrBuilder() {
-        if (latlonBoxBuilder_ != null) {
-          return latlonBoxBuilder_.getMessageOrBuilder();
+      public org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBoxOrBuilder getLatLonBoxOrBuilder() {
+        if (latLonBoxBuilder_ != null) {
+          return latLonBoxBuilder_.getMessageOrBuilder();
         } else {
-          return latlonBox_;
+          return latLonBox_;
         }
       }
       /**
-       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latlonBox = 4;</code>
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.TLatLonBox latLonBox = 4;</code>
        *
        * <pre>
        * Geographical area/region
@@ -6605,16 +6964,16 @@ public final class RProtocol {
        */
       private com.google.protobuf.SingleFieldBuilder<
           org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox, org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.Builder, org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBoxOrBuilder> 
-          getLatlonBoxFieldBuilder() {
-        if (latlonBoxBuilder_ == null) {
-          latlonBoxBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          getLatLonBoxFieldBuilder() {
+        if (latLonBoxBuilder_ == null) {
+          latLonBoxBuilder_ = new com.google.protobuf.SingleFieldBuilder<
               org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox, org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBox.Builder, org.wikience.wrrs.wrrsprotobuf.RProtocol.TLatLonBoxOrBuilder>(
-                  getLatlonBox(),
+                  getLatLonBox(),
                   getParentForChildren(),
                   isClean());
-          latlonBox_ = null;
+          latLonBox_ = null;
         }
-        return latlonBoxBuilder_;
+        return latLonBoxBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:org.wikience.wrrs.wrrsprotobuf.RequestParams)
@@ -9107,6 +9466,24 @@ public final class RProtocol {
      * <code>optional double longitudeWest = 4 [default = 180];</code>
      */
     double getLongitudeWest();
+
+    /**
+     * <code>optional int32 tileLatSize = 5 [default = 256];</code>
+     */
+    boolean hasTileLatSize();
+    /**
+     * <code>optional int32 tileLatSize = 5 [default = 256];</code>
+     */
+    int getTileLatSize();
+
+    /**
+     * <code>optional int32 tileLonSize = 6 [default = 256];</code>
+     */
+    boolean hasTileLonSize();
+    /**
+     * <code>optional int32 tileLonSize = 6 [default = 256];</code>
+     */
+    int getTileLonSize();
   }
   /**
    * Protobuf type {@code org.wikience.wrrs.wrrsprotobuf.TLatLonBox}
@@ -9182,6 +9559,16 @@ public final class RProtocol {
             case 33: {
               bitField0_ |= 0x00000008;
               longitudeWest_ = input.readDouble();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              tileLatSize_ = input.readInt32();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              tileLonSize_ = input.readInt32();
               break;
             }
           }
@@ -9284,11 +9671,43 @@ public final class RProtocol {
       return longitudeWest_;
     }
 
+    public static final int TILELATSIZE_FIELD_NUMBER = 5;
+    private int tileLatSize_;
+    /**
+     * <code>optional int32 tileLatSize = 5 [default = 256];</code>
+     */
+    public boolean hasTileLatSize() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional int32 tileLatSize = 5 [default = 256];</code>
+     */
+    public int getTileLatSize() {
+      return tileLatSize_;
+    }
+
+    public static final int TILELONSIZE_FIELD_NUMBER = 6;
+    private int tileLonSize_;
+    /**
+     * <code>optional int32 tileLonSize = 6 [default = 256];</code>
+     */
+    public boolean hasTileLonSize() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional int32 tileLonSize = 6 [default = 256];</code>
+     */
+    public int getTileLonSize() {
+      return tileLonSize_;
+    }
+
     private void initFields() {
       latitudeNorth_ = -90D;
       latitudeSouth_ = 90D;
       longitudeEast_ = -180D;
       longitudeWest_ = 180D;
+      tileLatSize_ = 256;
+      tileLonSize_ = 256;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -9315,6 +9734,12 @@ public final class RProtocol {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeDouble(4, longitudeWest_);
       }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, tileLatSize_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeInt32(6, tileLonSize_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -9339,6 +9764,14 @@ public final class RProtocol {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeDoubleSize(4, longitudeWest_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, tileLatSize_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, tileLonSize_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -9469,6 +9902,10 @@ public final class RProtocol {
         bitField0_ = (bitField0_ & ~0x00000004);
         longitudeWest_ = 180D;
         bitField0_ = (bitField0_ & ~0x00000008);
+        tileLatSize_ = 256;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        tileLonSize_ = 256;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -9513,6 +9950,14 @@ public final class RProtocol {
           to_bitField0_ |= 0x00000008;
         }
         result.longitudeWest_ = longitudeWest_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.tileLatSize_ = tileLatSize_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.tileLonSize_ = tileLonSize_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -9540,6 +9985,12 @@ public final class RProtocol {
         }
         if (other.hasLongitudeWest()) {
           setLongitudeWest(other.getLongitudeWest());
+        }
+        if (other.hasTileLatSize()) {
+          setTileLatSize(other.getTileLatSize());
+        }
+        if (other.hasTileLonSize()) {
+          setTileLonSize(other.getTileLonSize());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -9692,6 +10143,70 @@ public final class RProtocol {
       public Builder clearLongitudeWest() {
         bitField0_ = (bitField0_ & ~0x00000008);
         longitudeWest_ = 180D;
+        onChanged();
+        return this;
+      }
+
+      private int tileLatSize_ = 256;
+      /**
+       * <code>optional int32 tileLatSize = 5 [default = 256];</code>
+       */
+      public boolean hasTileLatSize() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional int32 tileLatSize = 5 [default = 256];</code>
+       */
+      public int getTileLatSize() {
+        return tileLatSize_;
+      }
+      /**
+       * <code>optional int32 tileLatSize = 5 [default = 256];</code>
+       */
+      public Builder setTileLatSize(int value) {
+        bitField0_ |= 0x00000010;
+        tileLatSize_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 tileLatSize = 5 [default = 256];</code>
+       */
+      public Builder clearTileLatSize() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        tileLatSize_ = 256;
+        onChanged();
+        return this;
+      }
+
+      private int tileLonSize_ = 256;
+      /**
+       * <code>optional int32 tileLonSize = 6 [default = 256];</code>
+       */
+      public boolean hasTileLonSize() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional int32 tileLonSize = 6 [default = 256];</code>
+       */
+      public int getTileLonSize() {
+        return tileLonSize_;
+      }
+      /**
+       * <code>optional int32 tileLonSize = 6 [default = 256];</code>
+       */
+      public Builder setTileLonSize(int value) {
+        bitField0_ |= 0x00000020;
+        tileLonSize_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 tileLonSize = 6 [default = 256];</code>
+       */
+      public Builder clearTileLonSize() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        tileLonSize_ = 256;
         onChanged();
         return this;
       }
@@ -10199,15 +10714,70 @@ public final class RProtocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated double data = 1;</code>
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.RasterData.COMPRESSION_METHOD compressionMethod = 1 [default = NO_COMPRESSION];</code>
+     */
+    boolean hasCompressionMethod();
+    /**
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.RasterData.COMPRESSION_METHOD compressionMethod = 1 [default = NO_COMPRESSION];</code>
+     */
+    org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD getCompressionMethod();
+
+    /**
+     * <code>optional int32 bytesPerElement = 2;</code>
+     *
+     * <pre>
+     * used for 'dataCompressed'
+     * </pre>
+     */
+    boolean hasBytesPerElement();
+    /**
+     * <code>optional int32 bytesPerElement = 2;</code>
+     *
+     * <pre>
+     * used for 'dataCompressed'
+     * </pre>
+     */
+    int getBytesPerElement();
+
+    /**
+     * <code>optional bytes dataCompressed = 3;</code>
+     *
+     * <pre>
+     * compressed data
+     * </pre>
+     */
+    boolean hasDataCompressed();
+    /**
+     * <code>optional bytes dataCompressed = 3;</code>
+     *
+     * <pre>
+     * compressed data
+     * </pre>
+     */
+    com.google.protobuf.ByteString getDataCompressed();
+
+    /**
+     * <code>repeated double data = 4;</code>
+     *
+     * <pre>
+     * non-compressed data
+     * </pre>
      */
     java.util.List<java.lang.Double> getDataList();
     /**
-     * <code>repeated double data = 1;</code>
+     * <code>repeated double data = 4;</code>
+     *
+     * <pre>
+     * non-compressed data
+     * </pre>
      */
     int getDataCount();
     /**
-     * <code>repeated double data = 1;</code>
+     * <code>repeated double data = 4;</code>
+     *
+     * <pre>
+     * non-compressed data
+     * </pre>
      */
     double getData(int index);
   }
@@ -10267,20 +10837,41 @@ public final class RProtocol {
               }
               break;
             }
-            case 9: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+            case 8: {
+              int rawValue = input.readEnum();
+              org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD value = org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                compressionMethod_ = value;
+              }
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              bytesPerElement_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              bitField0_ |= 0x00000004;
+              dataCompressed_ = input.readBytes();
+              break;
+            }
+            case 33: {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
                 data_ = new java.util.ArrayList<java.lang.Double>();
-                mutable_bitField0_ |= 0x00000001;
+                mutable_bitField0_ |= 0x00000008;
               }
               data_.add(input.readDouble());
               break;
             }
-            case 10: {
+            case 34: {
               int length = input.readRawVarint32();
               int limit = input.pushLimit(length);
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001) && input.getBytesUntilLimit() > 0) {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008) && input.getBytesUntilLimit() > 0) {
                 data_ = new java.util.ArrayList<java.lang.Double>();
-                mutable_bitField0_ |= 0x00000001;
+                mutable_bitField0_ |= 0x00000008;
               }
               while (input.getBytesUntilLimit() > 0) {
                 data_.add(input.readDouble());
@@ -10296,7 +10887,7 @@ public final class RProtocol {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
           data_ = java.util.Collections.unmodifiableList(data_);
         }
         this.unknownFields = unknownFields.build();
@@ -10330,29 +10921,188 @@ public final class RProtocol {
       return PARSER;
     }
 
-    public static final int DATA_FIELD_NUMBER = 1;
+    /**
+     * Protobuf enum {@code org.wikience.wrrs.wrrsprotobuf.RasterData.COMPRESSION_METHOD}
+     */
+    public enum COMPRESSION_METHOD
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>NO_COMPRESSION = 0;</code>
+       */
+      NO_COMPRESSION(0, 0),
+      /**
+       * <code>ZLIB = 1;</code>
+       */
+      ZLIB(1, 1),
+      ;
+
+      /**
+       * <code>NO_COMPRESSION = 0;</code>
+       */
+      public static final int NO_COMPRESSION_VALUE = 0;
+      /**
+       * <code>ZLIB = 1;</code>
+       */
+      public static final int ZLIB_VALUE = 1;
+
+
+      public final int getNumber() { return value; }
+
+      public static COMPRESSION_METHOD valueOf(int value) {
+        switch (value) {
+          case 0: return NO_COMPRESSION;
+          case 1: return ZLIB;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<COMPRESSION_METHOD>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<COMPRESSION_METHOD>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<COMPRESSION_METHOD>() {
+              public COMPRESSION_METHOD findValueByNumber(int number) {
+                return COMPRESSION_METHOD.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final COMPRESSION_METHOD[] VALUES = values();
+
+      public static COMPRESSION_METHOD valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private COMPRESSION_METHOD(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:org.wikience.wrrs.wrrsprotobuf.RasterData.COMPRESSION_METHOD)
+    }
+
+    private int bitField0_;
+    public static final int COMPRESSIONMETHOD_FIELD_NUMBER = 1;
+    private org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD compressionMethod_;
+    /**
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.RasterData.COMPRESSION_METHOD compressionMethod = 1 [default = NO_COMPRESSION];</code>
+     */
+    public boolean hasCompressionMethod() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .org.wikience.wrrs.wrrsprotobuf.RasterData.COMPRESSION_METHOD compressionMethod = 1 [default = NO_COMPRESSION];</code>
+     */
+    public org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD getCompressionMethod() {
+      return compressionMethod_;
+    }
+
+    public static final int BYTESPERELEMENT_FIELD_NUMBER = 2;
+    private int bytesPerElement_;
+    /**
+     * <code>optional int32 bytesPerElement = 2;</code>
+     *
+     * <pre>
+     * used for 'dataCompressed'
+     * </pre>
+     */
+    public boolean hasBytesPerElement() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int32 bytesPerElement = 2;</code>
+     *
+     * <pre>
+     * used for 'dataCompressed'
+     * </pre>
+     */
+    public int getBytesPerElement() {
+      return bytesPerElement_;
+    }
+
+    public static final int DATACOMPRESSED_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString dataCompressed_;
+    /**
+     * <code>optional bytes dataCompressed = 3;</code>
+     *
+     * <pre>
+     * compressed data
+     * </pre>
+     */
+    public boolean hasDataCompressed() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional bytes dataCompressed = 3;</code>
+     *
+     * <pre>
+     * compressed data
+     * </pre>
+     */
+    public com.google.protobuf.ByteString getDataCompressed() {
+      return dataCompressed_;
+    }
+
+    public static final int DATA_FIELD_NUMBER = 4;
     private java.util.List<java.lang.Double> data_;
     /**
-     * <code>repeated double data = 1;</code>
+     * <code>repeated double data = 4;</code>
+     *
+     * <pre>
+     * non-compressed data
+     * </pre>
      */
     public java.util.List<java.lang.Double>
         getDataList() {
       return data_;
     }
     /**
-     * <code>repeated double data = 1;</code>
+     * <code>repeated double data = 4;</code>
+     *
+     * <pre>
+     * non-compressed data
+     * </pre>
      */
     public int getDataCount() {
       return data_.size();
     }
     /**
-     * <code>repeated double data = 1;</code>
+     * <code>repeated double data = 4;</code>
+     *
+     * <pre>
+     * non-compressed data
+     * </pre>
      */
     public double getData(int index) {
       return data_.get(index);
     }
 
     private void initFields() {
+      compressionMethod_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD.NO_COMPRESSION;
+      bytesPerElement_ = 0;
+      dataCompressed_ = com.google.protobuf.ByteString.EMPTY;
       data_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
@@ -10368,8 +11118,17 @@ public final class RProtocol {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(1, compressionMethod_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, bytesPerElement_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, dataCompressed_);
+      }
       for (int i = 0; i < data_.size(); i++) {
-        output.writeDouble(1, data_.get(i));
+        output.writeDouble(4, data_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -10380,6 +11139,18 @@ public final class RProtocol {
       if (size != -1) return size;
 
       size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, compressionMethod_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, bytesPerElement_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, dataCompressed_);
+      }
       {
         int dataSize = 0;
         dataSize = 8 * getDataList().size();
@@ -10507,8 +11278,14 @@ public final class RProtocol {
 
       public Builder clear() {
         super.clear();
-        data_ = java.util.Collections.emptyList();
+        compressionMethod_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD.NO_COMPRESSION;
         bitField0_ = (bitField0_ & ~0x00000001);
+        bytesPerElement_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        dataCompressed_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        data_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -10536,11 +11313,25 @@ public final class RProtocol {
       public org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData buildPartial() {
         org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData result = new org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.compressionMethod_ = compressionMethod_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.bytesPerElement_ = bytesPerElement_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.dataCompressed_ = dataCompressed_;
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
           data_ = java.util.Collections.unmodifiableList(data_);
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000008);
         }
         result.data_ = data_;
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -10556,10 +11347,19 @@ public final class RProtocol {
 
       public Builder mergeFrom(org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData other) {
         if (other == org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.getDefaultInstance()) return this;
+        if (other.hasCompressionMethod()) {
+          setCompressionMethod(other.getCompressionMethod());
+        }
+        if (other.hasBytesPerElement()) {
+          setBytesPerElement(other.getBytesPerElement());
+        }
+        if (other.hasDataCompressed()) {
+          setDataCompressed(other.getDataCompressed());
+        }
         if (!other.data_.isEmpty()) {
           if (data_.isEmpty()) {
             data_ = other.data_;
-            bitField0_ = (bitField0_ & ~0x00000001);
+            bitField0_ = (bitField0_ & ~0x00000008);
           } else {
             ensureDataIsMutable();
             data_.addAll(other.data_);
@@ -10593,34 +11393,184 @@ public final class RProtocol {
       }
       private int bitField0_;
 
+      private org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD compressionMethod_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD.NO_COMPRESSION;
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.RasterData.COMPRESSION_METHOD compressionMethod = 1 [default = NO_COMPRESSION];</code>
+       */
+      public boolean hasCompressionMethod() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.RasterData.COMPRESSION_METHOD compressionMethod = 1 [default = NO_COMPRESSION];</code>
+       */
+      public org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD getCompressionMethod() {
+        return compressionMethod_;
+      }
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.RasterData.COMPRESSION_METHOD compressionMethod = 1 [default = NO_COMPRESSION];</code>
+       */
+      public Builder setCompressionMethod(org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
+        compressionMethod_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .org.wikience.wrrs.wrrsprotobuf.RasterData.COMPRESSION_METHOD compressionMethod = 1 [default = NO_COMPRESSION];</code>
+       */
+      public Builder clearCompressionMethod() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        compressionMethod_ = org.wikience.wrrs.wrrsprotobuf.RProtocol.RasterData.COMPRESSION_METHOD.NO_COMPRESSION;
+        onChanged();
+        return this;
+      }
+
+      private int bytesPerElement_ ;
+      /**
+       * <code>optional int32 bytesPerElement = 2;</code>
+       *
+       * <pre>
+       * used for 'dataCompressed'
+       * </pre>
+       */
+      public boolean hasBytesPerElement() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int32 bytesPerElement = 2;</code>
+       *
+       * <pre>
+       * used for 'dataCompressed'
+       * </pre>
+       */
+      public int getBytesPerElement() {
+        return bytesPerElement_;
+      }
+      /**
+       * <code>optional int32 bytesPerElement = 2;</code>
+       *
+       * <pre>
+       * used for 'dataCompressed'
+       * </pre>
+       */
+      public Builder setBytesPerElement(int value) {
+        bitField0_ |= 0x00000002;
+        bytesPerElement_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 bytesPerElement = 2;</code>
+       *
+       * <pre>
+       * used for 'dataCompressed'
+       * </pre>
+       */
+      public Builder clearBytesPerElement() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        bytesPerElement_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString dataCompressed_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>optional bytes dataCompressed = 3;</code>
+       *
+       * <pre>
+       * compressed data
+       * </pre>
+       */
+      public boolean hasDataCompressed() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional bytes dataCompressed = 3;</code>
+       *
+       * <pre>
+       * compressed data
+       * </pre>
+       */
+      public com.google.protobuf.ByteString getDataCompressed() {
+        return dataCompressed_;
+      }
+      /**
+       * <code>optional bytes dataCompressed = 3;</code>
+       *
+       * <pre>
+       * compressed data
+       * </pre>
+       */
+      public Builder setDataCompressed(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        dataCompressed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bytes dataCompressed = 3;</code>
+       *
+       * <pre>
+       * compressed data
+       * </pre>
+       */
+      public Builder clearDataCompressed() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        dataCompressed_ = getDefaultInstance().getDataCompressed();
+        onChanged();
+        return this;
+      }
+
       private java.util.List<java.lang.Double> data_ = java.util.Collections.emptyList();
       private void ensureDataIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
           data_ = new java.util.ArrayList<java.lang.Double>(data_);
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000008;
          }
       }
       /**
-       * <code>repeated double data = 1;</code>
+       * <code>repeated double data = 4;</code>
+       *
+       * <pre>
+       * non-compressed data
+       * </pre>
        */
       public java.util.List<java.lang.Double>
           getDataList() {
         return java.util.Collections.unmodifiableList(data_);
       }
       /**
-       * <code>repeated double data = 1;</code>
+       * <code>repeated double data = 4;</code>
+       *
+       * <pre>
+       * non-compressed data
+       * </pre>
        */
       public int getDataCount() {
         return data_.size();
       }
       /**
-       * <code>repeated double data = 1;</code>
+       * <code>repeated double data = 4;</code>
+       *
+       * <pre>
+       * non-compressed data
+       * </pre>
        */
       public double getData(int index) {
         return data_.get(index);
       }
       /**
-       * <code>repeated double data = 1;</code>
+       * <code>repeated double data = 4;</code>
+       *
+       * <pre>
+       * non-compressed data
+       * </pre>
        */
       public Builder setData(
           int index, double value) {
@@ -10630,7 +11580,11 @@ public final class RProtocol {
         return this;
       }
       /**
-       * <code>repeated double data = 1;</code>
+       * <code>repeated double data = 4;</code>
+       *
+       * <pre>
+       * non-compressed data
+       * </pre>
        */
       public Builder addData(double value) {
         ensureDataIsMutable();
@@ -10639,7 +11593,11 @@ public final class RProtocol {
         return this;
       }
       /**
-       * <code>repeated double data = 1;</code>
+       * <code>repeated double data = 4;</code>
+       *
+       * <pre>
+       * non-compressed data
+       * </pre>
        */
       public Builder addAllData(
           java.lang.Iterable<? extends java.lang.Double> values) {
@@ -10650,11 +11608,15 @@ public final class RProtocol {
         return this;
       }
       /**
-       * <code>repeated double data = 1;</code>
+       * <code>repeated double data = 4;</code>
+       *
+       * <pre>
+       * non-compressed data
+       * </pre>
        */
       public Builder clearData() {
         data_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000008);
         onChanged();
         return this;
       }
@@ -10668,6 +11630,773 @@ public final class RProtocol {
     }
 
     // @@protoc_insertion_point(class_scope:org.wikience.wrrs.wrrsprotobuf.RasterData)
+  }
+
+  public interface ResponseStatisticsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:org.wikience.wrrs.wrrsprotobuf.ResponseStatistics)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional int64 fileRead_ms = 1;</code>
+     *
+     * <pre>
+     * Time to open and read file
+     * </pre>
+     */
+    boolean hasFileReadMs();
+    /**
+     * <code>optional int64 fileRead_ms = 1;</code>
+     *
+     * <pre>
+     * Time to open and read file
+     * </pre>
+     */
+    long getFileReadMs();
+
+    /**
+     * <code>optional int64 toRGB_ms = 2;</code>
+     *
+     * <pre>
+     * Time to convert to RGB
+     * </pre>
+     */
+    boolean hasToRGBMs();
+    /**
+     * <code>optional int64 toRGB_ms = 2;</code>
+     *
+     * <pre>
+     * Time to convert to RGB
+     * </pre>
+     */
+    long getToRGBMs();
+
+    /**
+     * <code>optional int64 toPNG_ms = 3;</code>
+     *
+     * <pre>
+     * Time to convert to PNG
+     * </pre>
+     */
+    boolean hasToPNGMs();
+    /**
+     * <code>optional int64 toPNG_ms = 3;</code>
+     *
+     * <pre>
+     * Time to convert to PNG
+     * </pre>
+     */
+    long getToPNGMs();
+
+    /**
+     * <code>optional int64 toZIP_ms = 4;</code>
+     *
+     * <pre>
+     * Time to pack with GZIP
+     * </pre>
+     */
+    boolean hasToZIPMs();
+    /**
+     * <code>optional int64 toZIP_ms = 4;</code>
+     *
+     * <pre>
+     * Time to pack with GZIP
+     * </pre>
+     */
+    long getToZIPMs();
+  }
+  /**
+   * Protobuf type {@code org.wikience.wrrs.wrrsprotobuf.ResponseStatistics}
+   *
+   * <pre>
+   * Server-side statistics
+   * </pre>
+   */
+  public static final class ResponseStatistics extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:org.wikience.wrrs.wrrsprotobuf.ResponseStatistics)
+      ResponseStatisticsOrBuilder {
+    // Use ResponseStatistics.newBuilder() to construct.
+    private ResponseStatistics(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private ResponseStatistics(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final ResponseStatistics defaultInstance;
+    public static ResponseStatistics getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public ResponseStatistics getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ResponseStatistics(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              fileReadMs_ = input.readInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              toRGBMs_ = input.readInt64();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              toPNGMs_ = input.readInt64();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              toZIPMs_ = input.readInt64();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.wikience.wrrs.wrrsprotobuf.RProtocol.internal_static_org_wikience_wrrs_wrrsprotobuf_ResponseStatistics_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.wikience.wrrs.wrrsprotobuf.RProtocol.internal_static_org_wikience_wrrs_wrrsprotobuf_ResponseStatistics_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.class, org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<ResponseStatistics> PARSER =
+        new com.google.protobuf.AbstractParser<ResponseStatistics>() {
+      public ResponseStatistics parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ResponseStatistics(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ResponseStatistics> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int FILEREAD_MS_FIELD_NUMBER = 1;
+    private long fileReadMs_;
+    /**
+     * <code>optional int64 fileRead_ms = 1;</code>
+     *
+     * <pre>
+     * Time to open and read file
+     * </pre>
+     */
+    public boolean hasFileReadMs() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional int64 fileRead_ms = 1;</code>
+     *
+     * <pre>
+     * Time to open and read file
+     * </pre>
+     */
+    public long getFileReadMs() {
+      return fileReadMs_;
+    }
+
+    public static final int TORGB_MS_FIELD_NUMBER = 2;
+    private long toRGBMs_;
+    /**
+     * <code>optional int64 toRGB_ms = 2;</code>
+     *
+     * <pre>
+     * Time to convert to RGB
+     * </pre>
+     */
+    public boolean hasToRGBMs() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int64 toRGB_ms = 2;</code>
+     *
+     * <pre>
+     * Time to convert to RGB
+     * </pre>
+     */
+    public long getToRGBMs() {
+      return toRGBMs_;
+    }
+
+    public static final int TOPNG_MS_FIELD_NUMBER = 3;
+    private long toPNGMs_;
+    /**
+     * <code>optional int64 toPNG_ms = 3;</code>
+     *
+     * <pre>
+     * Time to convert to PNG
+     * </pre>
+     */
+    public boolean hasToPNGMs() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional int64 toPNG_ms = 3;</code>
+     *
+     * <pre>
+     * Time to convert to PNG
+     * </pre>
+     */
+    public long getToPNGMs() {
+      return toPNGMs_;
+    }
+
+    public static final int TOZIP_MS_FIELD_NUMBER = 4;
+    private long toZIPMs_;
+    /**
+     * <code>optional int64 toZIP_ms = 4;</code>
+     *
+     * <pre>
+     * Time to pack with GZIP
+     * </pre>
+     */
+    public boolean hasToZIPMs() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional int64 toZIP_ms = 4;</code>
+     *
+     * <pre>
+     * Time to pack with GZIP
+     * </pre>
+     */
+    public long getToZIPMs() {
+      return toZIPMs_;
+    }
+
+    private void initFields() {
+      fileReadMs_ = 0L;
+      toRGBMs_ = 0L;
+      toPNGMs_ = 0L;
+      toZIPMs_ = 0L;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt64(1, fileReadMs_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt64(2, toRGBMs_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt64(3, toPNGMs_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt64(4, toZIPMs_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, fileReadMs_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, toRGBMs_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, toPNGMs_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(4, toZIPMs_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code org.wikience.wrrs.wrrsprotobuf.ResponseStatistics}
+     *
+     * <pre>
+     * Server-side statistics
+     * </pre>
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:org.wikience.wrrs.wrrsprotobuf.ResponseStatistics)
+        org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatisticsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.wikience.wrrs.wrrsprotobuf.RProtocol.internal_static_org_wikience_wrrs_wrrsprotobuf_ResponseStatistics_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.wikience.wrrs.wrrsprotobuf.RProtocol.internal_static_org_wikience_wrrs_wrrsprotobuf_ResponseStatistics_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.class, org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.Builder.class);
+      }
+
+      // Construct using org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        fileReadMs_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        toRGBMs_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        toPNGMs_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        toZIPMs_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.wikience.wrrs.wrrsprotobuf.RProtocol.internal_static_org_wikience_wrrs_wrrsprotobuf_ResponseStatistics_descriptor;
+      }
+
+      public org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics getDefaultInstanceForType() {
+        return org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.getDefaultInstance();
+      }
+
+      public org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics build() {
+        org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics buildPartial() {
+        org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics result = new org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.fileReadMs_ = fileReadMs_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.toRGBMs_ = toRGBMs_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.toPNGMs_ = toPNGMs_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.toZIPMs_ = toZIPMs_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics) {
+          return mergeFrom((org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics other) {
+        if (other == org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics.getDefaultInstance()) return this;
+        if (other.hasFileReadMs()) {
+          setFileReadMs(other.getFileReadMs());
+        }
+        if (other.hasToRGBMs()) {
+          setToRGBMs(other.getToRGBMs());
+        }
+        if (other.hasToPNGMs()) {
+          setToPNGMs(other.getToPNGMs());
+        }
+        if (other.hasToZIPMs()) {
+          setToZIPMs(other.getToZIPMs());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.wikience.wrrs.wrrsprotobuf.RProtocol.ResponseStatistics) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long fileReadMs_ ;
+      /**
+       * <code>optional int64 fileRead_ms = 1;</code>
+       *
+       * <pre>
+       * Time to open and read file
+       * </pre>
+       */
+      public boolean hasFileReadMs() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional int64 fileRead_ms = 1;</code>
+       *
+       * <pre>
+       * Time to open and read file
+       * </pre>
+       */
+      public long getFileReadMs() {
+        return fileReadMs_;
+      }
+      /**
+       * <code>optional int64 fileRead_ms = 1;</code>
+       *
+       * <pre>
+       * Time to open and read file
+       * </pre>
+       */
+      public Builder setFileReadMs(long value) {
+        bitField0_ |= 0x00000001;
+        fileReadMs_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 fileRead_ms = 1;</code>
+       *
+       * <pre>
+       * Time to open and read file
+       * </pre>
+       */
+      public Builder clearFileReadMs() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fileReadMs_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long toRGBMs_ ;
+      /**
+       * <code>optional int64 toRGB_ms = 2;</code>
+       *
+       * <pre>
+       * Time to convert to RGB
+       * </pre>
+       */
+      public boolean hasToRGBMs() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int64 toRGB_ms = 2;</code>
+       *
+       * <pre>
+       * Time to convert to RGB
+       * </pre>
+       */
+      public long getToRGBMs() {
+        return toRGBMs_;
+      }
+      /**
+       * <code>optional int64 toRGB_ms = 2;</code>
+       *
+       * <pre>
+       * Time to convert to RGB
+       * </pre>
+       */
+      public Builder setToRGBMs(long value) {
+        bitField0_ |= 0x00000002;
+        toRGBMs_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 toRGB_ms = 2;</code>
+       *
+       * <pre>
+       * Time to convert to RGB
+       * </pre>
+       */
+      public Builder clearToRGBMs() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        toRGBMs_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long toPNGMs_ ;
+      /**
+       * <code>optional int64 toPNG_ms = 3;</code>
+       *
+       * <pre>
+       * Time to convert to PNG
+       * </pre>
+       */
+      public boolean hasToPNGMs() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional int64 toPNG_ms = 3;</code>
+       *
+       * <pre>
+       * Time to convert to PNG
+       * </pre>
+       */
+      public long getToPNGMs() {
+        return toPNGMs_;
+      }
+      /**
+       * <code>optional int64 toPNG_ms = 3;</code>
+       *
+       * <pre>
+       * Time to convert to PNG
+       * </pre>
+       */
+      public Builder setToPNGMs(long value) {
+        bitField0_ |= 0x00000004;
+        toPNGMs_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 toPNG_ms = 3;</code>
+       *
+       * <pre>
+       * Time to convert to PNG
+       * </pre>
+       */
+      public Builder clearToPNGMs() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        toPNGMs_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long toZIPMs_ ;
+      /**
+       * <code>optional int64 toZIP_ms = 4;</code>
+       *
+       * <pre>
+       * Time to pack with GZIP
+       * </pre>
+       */
+      public boolean hasToZIPMs() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional int64 toZIP_ms = 4;</code>
+       *
+       * <pre>
+       * Time to pack with GZIP
+       * </pre>
+       */
+      public long getToZIPMs() {
+        return toZIPMs_;
+      }
+      /**
+       * <code>optional int64 toZIP_ms = 4;</code>
+       *
+       * <pre>
+       * Time to pack with GZIP
+       * </pre>
+       */
+      public Builder setToZIPMs(long value) {
+        bitField0_ |= 0x00000008;
+        toZIPMs_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 toZIP_ms = 4;</code>
+       *
+       * <pre>
+       * Time to pack with GZIP
+       * </pre>
+       */
+      public Builder clearToZIPMs() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        toZIPMs_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:org.wikience.wrrs.wrrsprotobuf.ResponseStatistics)
+    }
+
+    static {
+      defaultInstance = new ResponseStatistics(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:org.wikience.wrrs.wrrsprotobuf.ResponseStatistics)
   }
 
   public interface Dimension1DOrBuilder extends
@@ -14534,6 +16263,11 @@ public final class RProtocol {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_org_wikience_wrrs_wrrsprotobuf_RasterData_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_org_wikience_wrrs_wrrsprotobuf_ResponseStatistics_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_org_wikience_wrrs_wrrsprotobuf_ResponseStatistics_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_org_wikience_wrrs_wrrsprotobuf_Dimension1D_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -14571,7 +16305,7 @@ public final class RProtocol {
       "cludeRequestMeta\030\002 \001(\01322.org.wikience.wr" +
       "rs.wrrsprotobuf.IncludeRequestMeta\022D\n\rre" +
       "questParams\030\003 \001(\0132-.org.wikience.wrrs.wr" +
-      "rsprotobuf.RequestParams\"\310\003\n\016RasterRespo",
+      "rsprotobuf.RequestParams\"\220\004\n\016RasterRespo",
       "nse\022F\n\016responseStatus\030\001 \001(\0132..org.wikien" +
       "ce.wrrs.wrrsprotobuf.ResponseStatus\022P\n\023r" +
       "equestResponseMeta\030\002 \001(\01323.org.wikience." +
@@ -14583,44 +16317,55 @@ public final class RProtocol {
       "ons\030\005 \001(\01320.org.wikience.wrrs.wrrsprotob" +
       "uf.RasterDimensions\022>\n\nrasterData\030\006 \001(\0132",
       "*.org.wikience.wrrs.wrrsprotobuf.RasterD" +
-      "ata\"(\n\023RequestResponseMeta\022\021\n\trequestId\030" +
-      "\001 \001(\005\"\225\001\n\022IncludeRequestMeta\022\034\n\rincludeP" +
-      "arams\030\001 \001(\010:\005false\022\037\n\021includeAttributes\030" +
-      "\002 \001(\010:\004true\022\037\n\021includeDimensions\030\003 \001(\010:\004" +
-      "true\022\037\n\021includeRasterData\030\004 \001(\010:\004true\"/\n" +
-      "\016ResponseStatus\022\014\n\004code\030\001 \001(\005\022\017\n\007message" +
-      "\030\002 \001(\t\"\267\001\n\rRequestParams\022\021\n\tdatasetId\030\001 " +
-      "\001(\t\022C\n\014timeInterval\030\002 \001(\0132-.org.wikience" +
-      ".wrrs.wrrsprotobuf.TTimeInterval\022\017\n\004zoom",
-      "\030\003 \001(\005:\0010\022=\n\tlatlonBox\030\004 \001(\0132*.org.wikie" +
-      "nce.wrrs.wrrsprotobuf.TLatLonBox\"\211\001\n\020Ras" +
-      "terAttributes\022\024\n\014missingValue\030\001 \001(\001\022\024\n\ta" +
-      "ddOffset\030\002 \001(\001:\0010\022\026\n\013scaleFactor\030\003 \001(\001:\001" +
-      "1\022\020\n\010minValue\030\004 \001(\001\022\020\n\010maxValue\030\005 \001(\001\022\r\n" +
-      "\005units\030\006 \001(\t\"\274\002\n\020RasterDimensions\0228\n\003lat" +
-      "\030\001 \001(\0132+.org.wikience.wrrs.wrrsprotobuf." +
-      "Dimension1D\0228\n\003lon\030\002 \001(\0132+.org.wikience." +
-      "wrrs.wrrsprotobuf.Dimension1D\022;\n\004time\030\003 " +
-      "\001(\0132-.org.wikience.wrrs.wrrsprotobuf.Dim",
-      "ension1Int\022:\n\005level\030\004 \001(\0132+.org.wikience" +
-      ".wrrs.wrrsprotobuf.Dimension1D\022;\n\006latlon" +
-      "\030\005 \001(\0132+.org.wikience.wrrs.wrrsprotobuf." +
-      "Dimension2D\"|\n\nTLatLonBox\022\032\n\rlatitudeNor" +
-      "th\030\001 \001(\001:\003-90\022\031\n\rlatitudeSouth\030\002 \001(\001:\00290" +
-      "\022\033\n\rlongitudeEast\030\003 \001(\001:\004-180\022\032\n\rlongitu" +
-      "deWest\030\004 \001(\001:\003180\"E\n\rTTimeInterval\022\032\n\017ti" +
-      "meStartMillis\030\001 \001(\003:\0010\022\030\n\rtimeEndMillis\030" +
-      "\002 \001(\003:\0010\"\032\n\nRasterData\022\014\n\004data\030\001 \003(\001\"w\n\013" +
-      "Dimension1D\022\r\n\005index\030\001 \001(\005\022\r\n\005start\030\002 \001(",
-      "\001\022\014\n\004step\030\003 \001(\001\022\013\n\003end\030\004 \001(\001\022\016\n\006values\030\005" +
-      " \003(\001\022\020\n\010fullname\030\006 \001(\t\022\r\n\005units\030\007 \001(\t\"x\n" +
-      "\rDimension1Int\022\020\n\005index\030\001 \001(\005:\0010\022\014\n\004base" +
-      "\030\002 \001(\003\022\r\n\005start\030\003 \001(\003\022\014\n\004step\030\004 \001(\003\022\013\n\003e" +
-      "nd\030\005 \001(\003\022\016\n\006values\030\006 \003(\003\022\r\n\005units\030\007 \001(\t\"" +
-      "G\n\013Dimension2D\0228\n\007point2D\030\001 \003(\0132\'.org.wi" +
-      "kience.wrrs.wrrsprotobuf.Point2D\"#\n\007Poin" +
-      "t2D\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001B\013B\tRProtoc" +
-      "ol"
+      "ata\022F\n\nstatistics\030\007 \001(\01322.org.wikience.w" +
+      "rrs.wrrsprotobuf.ResponseStatistics\"6\n\023R" +
+      "equestResponseMeta\022\021\n\trequestId\030\001 \001(\005\022\014\n" +
+      "\004flag\030\002 \001(\005\"\225\001\n\022IncludeRequestMeta\022\034\n\rin" +
+      "cludeParams\030\001 \001(\010:\005false\022\037\n\021includeAttri" +
+      "butes\030\002 \001(\010:\004true\022\037\n\021includeDimensions\030\003" +
+      " \001(\010:\004true\022\037\n\021includeRasterData\030\004 \001(\010:\004t" +
+      "rue\"/\n\016ResponseStatus\022\014\n\004code\030\001 \001(\005\022\017\n\007m" +
+      "essage\030\002 \001(\t\"\267\001\n\rRequestParams\022\021\n\tdatase",
+      "tId\030\001 \001(\t\022C\n\014timeInterval\030\002 \001(\0132-.org.wi" +
+      "kience.wrrs.wrrsprotobuf.TTimeInterval\022\017" +
+      "\n\004zoom\030\003 \001(\005:\0010\022=\n\tlatLonBox\030\004 \001(\0132*.org" +
+      ".wikience.wrrs.wrrsprotobuf.TLatLonBox\"\211" +
+      "\001\n\020RasterAttributes\022\024\n\014missingValue\030\001 \001(" +
+      "\001\022\024\n\taddOffset\030\002 \001(\001:\0010\022\026\n\013scaleFactor\030\003" +
+      " \001(\001:\0011\022\020\n\010minValue\030\004 \001(\001\022\020\n\010maxValue\030\005 " +
+      "\001(\001\022\r\n\005units\030\006 \001(\t\"\274\002\n\020RasterDimensions\022" +
+      "8\n\003lat\030\001 \001(\0132+.org.wikience.wrrs.wrrspro" +
+      "tobuf.Dimension1D\0228\n\003lon\030\002 \001(\0132+.org.wik",
+      "ience.wrrs.wrrsprotobuf.Dimension1D\022;\n\004t" +
+      "ime\030\003 \001(\0132-.org.wikience.wrrs.wrrsprotob" +
+      "uf.Dimension1Int\022:\n\005level\030\004 \001(\0132+.org.wi" +
+      "kience.wrrs.wrrsprotobuf.Dimension1D\022;\n\006" +
+      "latlon\030\005 \001(\0132+.org.wikience.wrrs.wrrspro" +
+      "tobuf.Dimension2D\"\260\001\n\nTLatLonBox\022\032\n\rlati" +
+      "tudeNorth\030\001 \001(\001:\003-90\022\031\n\rlatitudeSouth\030\002 " +
+      "\001(\001:\00290\022\033\n\rlongitudeEast\030\003 \001(\001:\004-180\022\032\n\r" +
+      "longitudeWest\030\004 \001(\001:\003180\022\030\n\013tileLatSize\030" +
+      "\005 \001(\005:\003256\022\030\n\013tileLonSize\030\006 \001(\005:\003256\"E\n\r",
+      "TTimeInterval\022\032\n\017timeStartMillis\030\001 \001(\003:\001" +
+      "0\022\030\n\rtimeEndMillis\030\002 \001(\003:\0010\"\351\001\n\nRasterDa" +
+      "ta\022h\n\021compressionMethod\030\001 \001(\0162=.org.wiki" +
+      "ence.wrrs.wrrsprotobuf.RasterData.COMPRE" +
+      "SSION_METHOD:\016NO_COMPRESSION\022\027\n\017bytesPer" +
+      "Element\030\002 \001(\005\022\026\n\016dataCompressed\030\003 \001(\014\022\014\n" +
+      "\004data\030\004 \003(\001\"2\n\022COMPRESSION_METHOD\022\022\n\016NO_" +
+      "COMPRESSION\020\000\022\010\n\004ZLIB\020\001\"_\n\022ResponseStati" +
+      "stics\022\023\n\013fileRead_ms\030\001 \001(\003\022\020\n\010toRGB_ms\030\002" +
+      " \001(\003\022\020\n\010toPNG_ms\030\003 \001(\003\022\020\n\010toZIP_ms\030\004 \001(\003",
+      "\"w\n\013Dimension1D\022\r\n\005index\030\001 \001(\005\022\r\n\005start\030" +
+      "\002 \001(\001\022\014\n\004step\030\003 \001(\001\022\013\n\003end\030\004 \001(\001\022\016\n\006valu" +
+      "es\030\005 \003(\001\022\020\n\010fullname\030\006 \001(\t\022\r\n\005units\030\007 \001(" +
+      "\t\"x\n\rDimension1Int\022\020\n\005index\030\001 \001(\005:\0010\022\014\n\004" +
+      "base\030\002 \001(\003\022\r\n\005start\030\003 \001(\003\022\014\n\004step\030\004 \001(\003\022" +
+      "\013\n\003end\030\005 \001(\003\022\016\n\006values\030\006 \003(\003\022\r\n\005units\030\007 " +
+      "\001(\t\"G\n\013Dimension2D\0228\n\007point2D\030\001 \003(\0132\'.or" +
+      "g.wikience.wrrs.wrrsprotobuf.Point2D\"#\n\007" +
+      "Point2D\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001B\013B\tRPr" +
+      "otocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -14651,13 +16396,13 @@ public final class RProtocol {
     internal_static_org_wikience_wrrs_wrrsprotobuf_RasterResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_wikience_wrrs_wrrsprotobuf_RasterResponse_descriptor,
-        new java.lang.String[] { "ResponseStatus", "RequestResponseMeta", "RequestParams", "RasterAttributes", "RasterDimensions", "RasterData", });
+        new java.lang.String[] { "ResponseStatus", "RequestResponseMeta", "RequestParams", "RasterAttributes", "RasterDimensions", "RasterData", "Statistics", });
     internal_static_org_wikience_wrrs_wrrsprotobuf_RequestResponseMeta_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_org_wikience_wrrs_wrrsprotobuf_RequestResponseMeta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_wikience_wrrs_wrrsprotobuf_RequestResponseMeta_descriptor,
-        new java.lang.String[] { "RequestId", });
+        new java.lang.String[] { "RequestId", "Flag", });
     internal_static_org_wikience_wrrs_wrrsprotobuf_IncludeRequestMeta_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_org_wikience_wrrs_wrrsprotobuf_IncludeRequestMeta_fieldAccessorTable = new
@@ -14675,7 +16420,7 @@ public final class RProtocol {
     internal_static_org_wikience_wrrs_wrrsprotobuf_RequestParams_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_wikience_wrrs_wrrsprotobuf_RequestParams_descriptor,
-        new java.lang.String[] { "DatasetId", "TimeInterval", "Zoom", "LatlonBox", });
+        new java.lang.String[] { "DatasetId", "TimeInterval", "Zoom", "LatLonBox", });
     internal_static_org_wikience_wrrs_wrrsprotobuf_RasterAttributes_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_org_wikience_wrrs_wrrsprotobuf_RasterAttributes_fieldAccessorTable = new
@@ -14693,7 +16438,7 @@ public final class RProtocol {
     internal_static_org_wikience_wrrs_wrrsprotobuf_TLatLonBox_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_wikience_wrrs_wrrsprotobuf_TLatLonBox_descriptor,
-        new java.lang.String[] { "LatitudeNorth", "LatitudeSouth", "LongitudeEast", "LongitudeWest", });
+        new java.lang.String[] { "LatitudeNorth", "LatitudeSouth", "LongitudeEast", "LongitudeWest", "TileLatSize", "TileLonSize", });
     internal_static_org_wikience_wrrs_wrrsprotobuf_TTimeInterval_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_org_wikience_wrrs_wrrsprotobuf_TTimeInterval_fieldAccessorTable = new
@@ -14705,27 +16450,33 @@ public final class RProtocol {
     internal_static_org_wikience_wrrs_wrrsprotobuf_RasterData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_wikience_wrrs_wrrsprotobuf_RasterData_descriptor,
-        new java.lang.String[] { "Data", });
-    internal_static_org_wikience_wrrs_wrrsprotobuf_Dimension1D_descriptor =
+        new java.lang.String[] { "CompressionMethod", "BytesPerElement", "DataCompressed", "Data", });
+    internal_static_org_wikience_wrrs_wrrsprotobuf_ResponseStatistics_descriptor =
       getDescriptor().getMessageTypes().get(12);
+    internal_static_org_wikience_wrrs_wrrsprotobuf_ResponseStatistics_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_org_wikience_wrrs_wrrsprotobuf_ResponseStatistics_descriptor,
+        new java.lang.String[] { "FileReadMs", "ToRGBMs", "ToPNGMs", "ToZIPMs", });
+    internal_static_org_wikience_wrrs_wrrsprotobuf_Dimension1D_descriptor =
+      getDescriptor().getMessageTypes().get(13);
     internal_static_org_wikience_wrrs_wrrsprotobuf_Dimension1D_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_wikience_wrrs_wrrsprotobuf_Dimension1D_descriptor,
         new java.lang.String[] { "Index", "Start", "Step", "End", "Values", "Fullname", "Units", });
     internal_static_org_wikience_wrrs_wrrsprotobuf_Dimension1Int_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_org_wikience_wrrs_wrrsprotobuf_Dimension1Int_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_wikience_wrrs_wrrsprotobuf_Dimension1Int_descriptor,
         new java.lang.String[] { "Index", "Base", "Start", "Step", "End", "Values", "Units", });
     internal_static_org_wikience_wrrs_wrrsprotobuf_Dimension2D_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_org_wikience_wrrs_wrrsprotobuf_Dimension2D_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_wikience_wrrs_wrrsprotobuf_Dimension2D_descriptor,
         new java.lang.String[] { "Point2D", });
     internal_static_org_wikience_wrrs_wrrsprotobuf_Point2D_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_org_wikience_wrrs_wrrsprotobuf_Point2D_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_wikience_wrrs_wrrsprotobuf_Point2D_descriptor,

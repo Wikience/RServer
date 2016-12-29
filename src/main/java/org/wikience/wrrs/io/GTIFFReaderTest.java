@@ -13,8 +13,9 @@ class GTIFFReaderTest {
     @org.junit.jupiter.api.Test
     void asPNG() {
         RProtocol.TLatLonBox.Builder builder = RProtocol.TLatLonBox.newBuilder();
-        builder.setLatitudeNorth(55.7).setLongitudeWest(37.5);
+        builder.setLatitudeNorth(55).setLongitudeWest(37);
         GTIFFReader reader = new GTIFFReader(FILE_PATH, builder.build());
+        reader.TEST_MODE = true;
         reader.asPNG();
         reader.asGZIP();
     }
