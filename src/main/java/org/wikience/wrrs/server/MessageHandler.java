@@ -126,6 +126,7 @@ public class MessageHandler {
                 }
             } else {
                 if (rasterRequest.getRequestParams().getDatasetId().startsWith("GTIFF")) {
+                    LOG.debug("New request");
                     RProtocol.TLatLonBox.Builder builder = RProtocol.TLatLonBox.newBuilder();
                     builder.setLatitudeNorth(55.4).setLongitudeWest(37.1);
                     if (rasterRequest.getRequestParams().hasLatLonBox()) {
