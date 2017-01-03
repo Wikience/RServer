@@ -34,6 +34,10 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.regex.Pattern;
 
 import static io.netty.handler.codec.http.HttpHeaders.Names.*;
@@ -93,8 +97,8 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     public static final int HTTP_CACHE_SECONDS = 60;
     private static final Pattern INSECURE_URI = Pattern.compile(".*[<>&\"].*");
     private static final Pattern ALLOWED_FILE_NAME = Pattern.compile("[A-Za-z0-9][-_A-Za-z0-9\\.]*");
+    private static ExecutorService executorService = Executors.newFixedThreadPool(2);
     public final String FILE_PATH = "d:\\RS_DATA\\Landsat\\8\\L1\\sr\\_\\179\\021\\LC81790212015146-SC20150806075046\\LC81790212015146LGN00_sr_band1.tif";
-
     public final String BAND05_NIR = "d:\\RS_DATA\\Landsat\\8\\L1\\sr\\_\\179\\021\\LC81790212015146-SC20150806075046\\LC81790212015146LGN00_sr_band5.tif";
     public final String BAND04_RED = "d:\\RS_DATA\\Landsat\\8\\L1\\sr\\_\\179\\021\\LC81790212015146-SC20150806075046\\LC81790212015146LGN00_sr_band4.tif";
 
@@ -228,8 +232,13 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
             GTIFFReader readerNIR = new GTIFFReader(BAND05_NIR, builder.build());
             GTIFFReader readerRED = new GTIFFReader(BAND04_RED, builder.build());
 
-            readerNIR.read();
-            readerRED.read();
+            // Parallel reads
+            CountDownLatch latch = new CountDownLatch(2);
+            Future nir_t = readerNIR.readInThread(executorService, latch);
+            Future red_t = readerRED.readInThread(executorService, latch);
+
+            latch.await();
+
             Raster nir_r = readerNIR.getInputRaster();
             Raster red_r = readerRED.getInputRaster();
 

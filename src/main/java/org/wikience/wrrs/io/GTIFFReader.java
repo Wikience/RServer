@@ -22,6 +22,9 @@ import java.awt.image.renderable.RenderContext;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 /**
  * (c) Antonio Rodriges, rodriges@wikience.org
@@ -62,6 +65,12 @@ public class GTIFFReader {
 
         long end = System.currentTimeMillis();
         fileReadMs = end - start;
+    }
+
+    public Future readInThread(ExecutorService executorService, CountDownLatch latch) {
+        Runnable runnable = () -> {read(); latch.countDown();};
+        Thread thread = new Thread(runnable);
+        return executorService.submit(thread);
     }
 
     private void readGrid() {
