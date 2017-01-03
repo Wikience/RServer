@@ -100,6 +100,12 @@ public class MessageHandler {
         try {
             RProtocol.RasterRequest rasterRequest = RProtocol.RasterRequest.parseFrom(rawMsg);
             rrB.setRequestResponseMeta(rasterRequest.getRequestResponseMeta());
+            if (rasterRequest.hasIncludeRequestMeta()) {
+                RProtocol.IncludeRequestMeta inc = rasterRequest.getIncludeRequestMeta();
+                if (inc.getIncludeParams()) {
+                    rrB.setRequestParams(rasterRequest.getRequestParams());
+                }
+            }
 
             if (rasterRequest.getRequestResponseMeta().hasFlag()) {
                 switch (rasterRequest.getRequestResponseMeta().getFlag()) {
