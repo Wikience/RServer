@@ -30,10 +30,14 @@ import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 import org.wikience.wrrs.server.MessageHandler;
 
-import static io.netty.handler.codec.http.HttpHeaders.Names.*;
-import static io.netty.handler.codec.http.HttpMethod.*;
-import static io.netty.handler.codec.http.HttpResponseStatus.*;
-import static io.netty.handler.codec.http.HttpVersion.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import static io.netty.handler.codec.http.HttpHeaders.Names.HOST;
+import static io.netty.handler.codec.http.HttpMethod.GET;
+import static io.netty.handler.codec.http.HttpResponseStatus.BAD_REQUEST;
+import static io.netty.handler.codec.http.HttpResponseStatus.FORBIDDEN;
+import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 /**
  * Handles handshakes and messages
@@ -45,6 +49,8 @@ class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
             WebSocketServer.configuration.getValueOf("webSocketPath");
 
     private WebSocketServerHandshaker handshaker;
+
+    private static ExecutorService executorService = Executors.newFixedThreadPool(16);
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, Object msg) {
@@ -106,13 +112,15 @@ class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
         byte[] request = new byte[byteBuf.readableBytes()];
         byteBuf.readBytes(request);
 
-        MessageHandler mhandler = new MessageHandler(request, ctx);
-        try {
-            mhandler.handle();
-        } catch (InvalidProtocolBufferException e) {
-            mhandler.sendMessage(mhandler.getErrorBlob());
-            System.out.println(e.getMessage());
-        }
+        executorService.submit(() -> {
+            MessageHandler mhandler = new MessageHandler(request, ctx);
+            try {
+                mhandler.handle();
+            } catch (InvalidProtocolBufferException e) {
+                mhandler.sendMessage(mhandler.getErrorBlob());
+                System.out.println(e.getMessage());
+            }
+        });
     }
 
     private static void sendHttpResponse(
