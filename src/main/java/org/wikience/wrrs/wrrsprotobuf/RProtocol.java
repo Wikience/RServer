@@ -11640,7 +11640,7 @@ public final class RProtocol {
      * <code>optional int64 fileRead_ms = 1;</code>
      *
      * <pre>
-     * Time to open and read file
+     * Time to open and readInputRaster file
      * </pre>
      */
     boolean hasFileReadMs();
@@ -11648,7 +11648,7 @@ public final class RProtocol {
      * <code>optional int64 fileRead_ms = 1;</code>
      *
      * <pre>
-     * Time to open and read file
+     * Time to open and readInputRaster file
      * </pre>
      */
     long getFileReadMs();
@@ -11826,7 +11826,7 @@ public final class RProtocol {
      * <code>optional int64 fileRead_ms = 1;</code>
      *
      * <pre>
-     * Time to open and read file
+     * Time to open and readInputRaster file
      * </pre>
      */
     public boolean hasFileReadMs() {
@@ -11836,7 +11836,7 @@ public final class RProtocol {
      * <code>optional int64 fileRead_ms = 1;</code>
      *
      * <pre>
-     * Time to open and read file
+     * Time to open and readInputRaster file
      * </pre>
      */
     public long getFileReadMs() {
@@ -12201,7 +12201,7 @@ public final class RProtocol {
        * <code>optional int64 fileRead_ms = 1;</code>
        *
        * <pre>
-       * Time to open and read file
+       * Time to open and readInputRaster file
        * </pre>
        */
       public boolean hasFileReadMs() {
@@ -12211,7 +12211,7 @@ public final class RProtocol {
        * <code>optional int64 fileRead_ms = 1;</code>
        *
        * <pre>
-       * Time to open and read file
+       * Time to open and readInputRaster file
        * </pre>
        */
       public long getFileReadMs() {
@@ -12221,7 +12221,7 @@ public final class RProtocol {
        * <code>optional int64 fileRead_ms = 1;</code>
        *
        * <pre>
-       * Time to open and read file
+       * Time to open and readInputRaster file
        * </pre>
        */
       public Builder setFileReadMs(long value) {
@@ -12234,7 +12234,7 @@ public final class RProtocol {
        * <code>optional int64 fileRead_ms = 1;</code>
        *
        * <pre>
-       * Time to open and read file
+       * Time to open and readInputRaster file
        * </pre>
        */
       public Builder clearFileReadMs() {

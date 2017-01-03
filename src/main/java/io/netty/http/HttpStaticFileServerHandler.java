@@ -15,30 +15,28 @@
  */
 package io.netty.http;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.HttpResponseStatus;
-import io.netty.handler.ssl.SslHandler;
-import io.netty.handler.stream.ChunkedFile;
 import io.netty.handler.stream.ChunkedStream;
 import io.netty.util.CharsetUtil;
-import io.netty.util.internal.SystemPropertyUtil;
+import org.wikience.wrrs.compute.NDVIDemo;
+import org.wikience.wrrs.io.Colorbar;
 import org.wikience.wrrs.io.GTIFFReader;
+import org.wikience.wrrs.io.RasterCompressor;
 import org.wikience.wrrs.wrrsprotobuf.RProtocol;
 
 import javax.activation.MimetypesFileTypeMap;
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.URLDecoder;
+import java.awt.image.Raster;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
 import static io.netty.handler.codec.http.HttpHeaders.Names.*;
-import static io.netty.handler.codec.http.HttpMethod.GET;
 import static io.netty.handler.codec.http.HttpResponseStatus.*;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
@@ -96,6 +94,9 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     private static final Pattern INSECURE_URI = Pattern.compile(".*[<>&\"].*");
     private static final Pattern ALLOWED_FILE_NAME = Pattern.compile("[A-Za-z0-9][-_A-Za-z0-9\\.]*");
     public final String FILE_PATH = "d:\\RS_DATA\\Landsat\\8\\L1\\sr\\_\\179\\021\\LC81790212015146-SC20150806075046\\LC81790212015146LGN00_sr_band1.tif";
+
+    public final String BAND05_NIR = "d:\\RS_DATA\\Landsat\\8\\L1\\sr\\_\\179\\021\\LC81790212015146-SC20150806075046\\LC81790212015146LGN00_sr_band5.tif";
+    public final String BAND04_RED = "d:\\RS_DATA\\Landsat\\8\\L1\\sr\\_\\179\\021\\LC81790212015146-SC20150806075046\\LC81790212015146LGN00_sr_band4.tif";
 
     private static void sendRedirect(ChannelHandlerContext ctx, String newUri) {
         FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, FOUND);
@@ -173,9 +174,11 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
-        String coverage;
+        String coverage = null;
         int tileLatSize = 256;
         int tileLonSize = 256;
+        double latN = 55.4;
+        double lonW = 37.1;
 
         QueryStringDecoder queryStringDecoder = new QueryStringDecoder(request.getUri());
         Map<String, List<String>> params = queryStringDecoder.parameters();
@@ -190,6 +193,12 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
                 if (p.getKey().equals("tileLonSize")) {
                     tileLonSize = Integer.parseInt(p.getValue().get(0));
                 }
+                if (p.getKey().equalsIgnoreCase("latN")) {
+                    latN = Double.parseDouble(p.getValue().get(0));
+                }
+                if (p.getKey().equalsIgnoreCase("lonW")) {
+                    lonW = Double.parseDouble(p.getValue().get(0));
+                }
             }
         }
 
@@ -198,54 +207,48 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
             return;
         }
 
-//        if (request.getMethod() != GET) {
-//            sendError(ctx, METHOD_NOT_ALLOWED);
-//            return;
-//        }
-
-        final String path = "d:\\RS_DATA\\Landsat\\8\\L1\\sr\\_\\179\\021\\LC81790212015146-SC20150806075046\\LC81790212015146LGN00_sr_band3.tif";
-        if (path == null) {
-            sendError(ctx, FORBIDDEN);
-            return;
-        }
-
-        File file = new File(path);
-        if (file.isHidden() || !file.exists()) {
-            sendError(ctx, NOT_FOUND);
-            return;
-        }
-
-        if (!file.isFile()) {
-            sendError(ctx, FORBIDDEN);
-            return;
-        }
-
-//        // Cache Validation
-//        String ifModifiedSince = request.headers().get(IF_MODIFIED_SINCE);
-//        if (ifModifiedSince != null && !ifModifiedSince.isEmpty()) {
-//            SimpleDateFormat dateFormatter = new SimpleDateFormat(HTTP_DATE_FORMAT, Locale.US);
-//            Date ifModifiedSinceDate = dateFormatter.parse(ifModifiedSince);
-//
-//            // Only compare up to the second because the datetime format we send to the client
-//            // does not have milliseconds
-//            long ifModifiedSinceDateSeconds = ifModifiedSinceDate.getTime() / 1000;
-//            long fileLastModifiedSeconds = file.lastModified() / 1000;
-//            if (ifModifiedSinceDateSeconds == fileLastModifiedSeconds) {
-//                sendNotModified(ctx);
-//                return;
-//            }
-//        }
-
         RProtocol.TLatLonBox.Builder builder = RProtocol.TLatLonBox.newBuilder();
-        builder.setLatitudeNorth(55.4).setLongitudeWest(37.1);
+        builder.setLatitudeNorth(latN).setLongitudeWest(lonW);
         builder.setTileLonSize(tileLonSize).setTileLatSize(tileLatSize);
 
-        GTIFFReader reader = new GTIFFReader(FILE_PATH, builder.build());
-        byte[] png = reader.asPNG();
+        byte[] png = {};
+        if (null == coverage) {
+            GTIFFReader reader = new GTIFFReader(FILE_PATH, builder.build());
+            reader.read();
 
-        RProtocol.ResponseStatistics statistics = reader.getStatistics();
-        System.err.println("[\"read\",\"toRGB\",\"toPNG\",\"size\"");
-        System.err.println(String.format("[%d,%d,%d,%d]", statistics.getFileReadMs(), statistics.getToRGBMs(), statistics.getToPNGMs(), png.length));
+            RasterCompressor compressor = new RasterCompressor();
+            Colorbar colorbar = new Colorbar(Colorbar.HEAT_PALETTE, Colorbar.SR_INDEX);
+            BufferedImage bufferedImage = compressor.toRGB(reader.getInputRaster(), colorbar);
+            png = compressor.toPNG(bufferedImage);
+
+            System.err.println("[\"readInputRaster\",\"toRGB\",\"toPNG\",\"size\"]");
+            System.err.println(String.format("[%d,%d,%d,%d]",
+                    reader.getFileReadMs(), compressor.getToRGBMs(), compressor.getToPNGMs(), png.length));
+        } else {
+            GTIFFReader readerNIR = new GTIFFReader(BAND05_NIR, builder.build());
+            GTIFFReader readerRED = new GTIFFReader(BAND04_RED, builder.build());
+
+            readerNIR.read();
+            readerRED.read();
+            Raster nir_r = readerNIR.getInputRaster();
+            Raster red_r = readerRED.getInputRaster();
+
+            NDVIDemo ndvi = new NDVIDemo();
+            float[] result = ndvi.compute(nir_r.getDataBuffer(), red_r.getDataBuffer());
+
+            RasterCompressor compressor = new RasterCompressor();
+            Colorbar colorbar = new Colorbar(Colorbar.NDVI_HEAT_PALETTE, Colorbar.NDVI_INDEX);
+            BufferedImage bufferedImage = compressor.toRGB(result, nir_r, colorbar);
+            png = compressor.toPNG(bufferedImage);
+
+
+            System.err.println("[\"readInputRaster\",\"toRGB\",\"toPNG\",\"size\",\"compute\"]");
+            System.err.println(String.format("[%d,%d,%d,%d,%d]",
+                    readerNIR.getFileReadMs() + readerRED.getFileReadMs(),
+                    compressor.getToRGBMs(), compressor.getToPNGMs(), png.length,
+                    ndvi.getComputeTime()));
+        }
+
 
         ChunkedStream stream = new ChunkedStream(new ByteArrayInputStream(png));
 
@@ -255,7 +258,7 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
         HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
         HttpHeaders.setContentLength(response, tileSize);
         response.headers().set(CONTENT_TYPE, "image/png");
-        setDateAndCacheHeaders(response, file);
+//        setDateAndCacheHeaders(response, file);
         if (HttpHeaders.isKeepAlive(request)) {
             response.headers().set(CONNECTION, HttpHeaders.Values.KEEP_ALIVE);
         }
@@ -265,10 +268,6 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
         response.headers().set(CACHE_CONTROL, "no-cache, no-store, must-revalidate");
         response.headers().set(PRAGMA, "no-cache");
         response.headers().set(EXPIRES, "0");
-//        response.headers().set(ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
-//        response.headers().set(ACCESS_CONTROL_EXPOSE_HEADERS, "true");
-
-
 
         // Write the initial line and the header.
         ctx.write(response);
@@ -282,11 +281,11 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
         sendFileFuture.addListener(new ChannelProgressiveFutureListener() {
             @Override
             public void operationProgressed(ChannelProgressiveFuture future, long progress, long total) {
-                if (total < 0) { // total unknown
-                    System.err.println(future.channel() + " Transfer progress: " + progress);
-                } else {
-                    System.err.println(future.channel() + " Transfer progress: " + progress + " / " + total);
-                }
+//                if (total < 0) { // total unknown
+//                    System.err.println(future.channel() + " Transfer progress: " + progress);
+//                } else {
+//                    System.err.println(future.channel() + " Transfer progress: " + progress + " / " + total);
+//                }
             }
 
             @Override

@@ -115,6 +115,6 @@ public class NetCDFReader {
         rrB.setRasterDimensions(rDim);
         rrB.setRasterAttributes(rAttr);
         rrB.setRasterData(arrBuilder);
-        // TODO: read data offset and scale factor
+        // TODO: readInputRaster data offset and scale factor
     }
 }

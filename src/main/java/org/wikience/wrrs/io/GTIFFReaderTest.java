@@ -2,8 +2,6 @@ package org.wikience.wrrs.io;
 
 import org.wikience.wrrs.wrrsprotobuf.RProtocol;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * (c) Antonio Rodriges, rodriges@wikience.org
  */
@@ -16,7 +14,7 @@ class GTIFFReaderTest {
         builder.setLatitudeNorth(55).setLongitudeWest(37);
         GTIFFReader reader = new GTIFFReader(FILE_PATH, builder.build());
         reader.TEST_MODE = true;
-        reader.asPNG();
-        reader.asGZIP();
+//        reader.asPNG();
+//        reader.asGZIP();
     }
 }

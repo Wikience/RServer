@@ -4,13 +4,13 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.jcraft.jzlib.Deflater;
 import com.jcraft.jzlib.DeflaterOutputStream;
-import com.jcraft.jzlib.GZIPException;
 import com.jcraft.jzlib.JZlib;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
+import io.netty.websocket.WebSocketServer;
 import org.bson.BsonBinaryWriter;
 import org.bson.BsonDocument;
 import org.bson.codecs.BsonDocumentCodec;
@@ -18,15 +18,13 @@ import org.bson.codecs.Codec;
 import org.bson.codecs.EncoderContext;
 import org.bson.io.BasicOutputBuffer;
 import org.json.XML;
-import io.netty.websocket.WebSocketServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wikience.wrrs.io.GTIFFReader;
+import org.wikience.wrrs.io.RasterCompressor;
 import org.wikience.wrrs.wrrsprotobuf.RProtocol;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -42,7 +40,9 @@ public class MessageHandler {
     private static final int CORRUPT_BSON_VERSION = 3000;
     private static final int COMPRESS_TEST = 4000;
 
-    public final String FILE_PATH = "d:\\RS_DATA\\Landsat\\8\\L1\\sr\\_\\179\\021\\LC81790212015146-SC20150806075046\\LC81790212015146LGN00_sr_band3.tif";
+    public final String BAND03 = "d:\\RS_DATA\\Landsat\\8\\L1\\sr\\_\\179\\021\\LC81790212015146-SC20150806075046\\LC81790212015146LGN00_sr_band3.tif";
+
+    public final String bands_p = "d:\\RS_DATA\\Landsat\\8\\L1\\sr\\_\\179\\021\\LC81790212015146-SC20150806075046\\LC81790212015146LGN00_sr_band%N%.tif";
 
     private final AttributeKey<Boolean> userConnected = AttributeKey.valueOf("uconnected");
 
@@ -127,17 +127,49 @@ public class MessageHandler {
             } else {
                 if (rasterRequest.getRequestParams().getDatasetId().startsWith("GTIFF")) {
                     LOG.debug("New request");
+                    RProtocol.ResponseStatistics.Builder statisticsBuilder = RProtocol.ResponseStatistics.newBuilder();
+
                     RProtocol.TLatLonBox.Builder builder = RProtocol.TLatLonBox.newBuilder();
                     builder.setLatitudeNorth(55.4).setLongitudeWest(37.1);
                     if (rasterRequest.getRequestParams().hasLatLonBox()) {
                         RProtocol.TLatLonBox box = rasterRequest.getRequestParams().getLatLonBox();
                         builder.setTileLatSize(box.getTileLatSize()).setTileLonSize(box.getTileLonSize());
+                        if (box.hasLatitudeNorth()) {
+                            builder.setLatitudeNorth(box.getLatitudeNorth());
+                        }
+                        if (box.hasLongitudeWest()) {
+                            builder.setLongitudeWest(box.getLongitudeWest());
+                        }
                     } else {
                         builder.setTileLonSize(256).setTileLatSize(256);
                     }
 
-                    GTIFFReader reader = new GTIFFReader(FILE_PATH, builder.build());
-                    byte[] result = reader.asGZIP();
+                    byte[] result = {};
+                    String details[] = rasterRequest.getRequestParams().getDatasetId().split("\\.");
+                    if (details.length > 2) {
+                        if (details[1].equals("b")) {
+                            // GTIFF.b.<band_number>
+                            int band_n = Integer.parseInt(details[2]);
+                            String path = bands_p.replace("%N%", "" + band_n);
+                            GTIFFReader reader = new GTIFFReader(path, builder.build());
+                            reader.read();
+
+                            RasterCompressor compressor = new RasterCompressor();
+                            result = compressor.asGZIP(reader.getInputRaster());
+
+                            statisticsBuilder.setToZIPMs(compressor.getToZIPms());
+                            statisticsBuilder.setFileReadMs(reader.getFileReadMs());
+                        }
+                    } else {
+                        GTIFFReader reader = new GTIFFReader(BAND03, builder.build());
+                        reader.read();
+
+                        RasterCompressor compressor = new RasterCompressor();
+                        result = compressor.asGZIP(reader.getInputRaster());
+
+                        statisticsBuilder.setToZIPMs(compressor.getToZIPms());
+                        statisticsBuilder.setFileReadMs(reader.getFileReadMs());
+                    }
 
                     RProtocol.Dimension1D.Builder lons = RProtocol.Dimension1D.newBuilder();
                     lons.setStart(1).setEnd(builder.getTileLonSize()).setStep(1).setIndex(0);
@@ -165,7 +197,7 @@ public class MessageHandler {
                     arrBuilder.setDataCompressed(ByteString.copyFrom(result));
                     rrB.setRasterData(arrBuilder);
 
-                    rrB.setStatistics(reader.getStatistics());
+                    rrB.setStatistics(statisticsBuilder);
 
                     statB.setCode(0); // success
                 } else {
