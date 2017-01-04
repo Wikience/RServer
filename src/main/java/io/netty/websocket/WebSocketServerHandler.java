@@ -112,7 +112,7 @@ class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
         byte[] request = new byte[byteBuf.readableBytes()];
         byteBuf.readBytes(request);
 
-        executorService.submit(() -> {
+        //executorService.submit(() -> {
             MessageHandler mhandler = new MessageHandler(request, ctx);
             try {
                 mhandler.handle();
@@ -120,11 +120,10 @@ class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
                 mhandler.sendMessage(mhandler.getErrorBlob());
                 System.out.println(e.getMessage());
             }
-        });
+        //});
     }
 
-    private static void sendHttpResponse(
-            ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {
+    private static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {
         // Generate an error page if response getStatus code is not OK (200).
         if (res.getStatus().code() != 200) {
             ByteBuf buf = Unpooled.copiedBuffer(res.getStatus().toString(), CharsetUtil.UTF_8);

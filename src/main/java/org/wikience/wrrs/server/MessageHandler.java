@@ -233,6 +233,31 @@ public class MessageHandler {
     }
 
     public void sendMessage(byte[] msg) {
+        // Browsers do not support this yet
+//        ChunkedStream stream = new ChunkedStream(new ByteArrayInputStream(msg));
+//        ChannelFuture sendFuture;
+//        sendFuture = ctx.write(new WebSocketChunkedInput(stream), ctx.newProgressivePromise());
+//        sendFuture.addListener(new ChannelProgressiveFutureListener() {
+//            @Override
+//            public void operationProgressed(ChannelProgressiveFuture future, long progress, long total) {
+//                if (total < 0) { // total unknown
+//                    System.err.println(future.channel() + " Transfer progress: " + progress);
+//                } else {
+//                    System.err.println(future.channel() + " Transfer progress: " + progress + " / " + total);
+//                }
+//            }
+//
+//            @Override
+//            public void operationComplete(ChannelProgressiveFuture future) {
+//                System.err.println(future.channel() + " Transfer complete.");
+//            }
+//        });
+//
+//        ctx.flush();
+//
+//        if (!sendFuture.isSuccess()) {
+//            System.out.println("Send failed: " + sendFuture.cause());
+//        }
         ctx.writeAndFlush(new BinaryWebSocketFrame(Unpooled.wrappedBuffer(msg)));
     }
 

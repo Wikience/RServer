@@ -72,7 +72,7 @@
     <properties>
         <netcdf.version>4.6.6</netcdf.version>
         <protobuf.version>2.5.0</protobuf.version>
-        <netty.version>4.0.33.Final</netty.version>
+        <netty.version>4.1.6.Final</netty.version>
         <bson.version>3.2.1</bson.version>
         <json.version>20140107</json.version>
         <geotools.version>13-SNAPSHOT</geotools.version>
