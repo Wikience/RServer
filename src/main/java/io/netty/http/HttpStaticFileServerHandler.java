@@ -225,8 +225,8 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
             BufferedImage bufferedImage = compressor.toRGB(reader.getInputRaster(), colorbar);
             png = compressor.toPNG(bufferedImage);
 
-            System.err.println("[\"readInputRaster\",\"toRGB\",\"toPNG\",\"size\"]");
-            System.err.println(String.format("[%d,%d,%d,%d]",
+            System.err.println("readInputRaster, toRGB, toPNG, size");
+            System.err.println(String.format("%d, %d, %d, %d",
                     reader.getFileReadMs(), compressor.getToRGBMs(), compressor.getToPNGMs(), png.length));
         } else {
             GTIFFReader readerNIR = new GTIFFReader(BAND05_NIR, builder.build());
@@ -251,8 +251,8 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
             png = compressor.toPNG(bufferedImage);
 
 
-            System.err.println("[\"readInputRaster\",\"toRGB\",\"toPNG\",\"size\",\"compute\"]");
-            System.err.println(String.format("[%d,%d,%d,%d,%d]",
+            System.err.println("readInputRaster, toRGB, toPNG, size, compute");
+            System.err.println(String.format("%d, %d, %d, %d, %d",
                     readerNIR.getFileReadMs() + readerRED.getFileReadMs(),
                     compressor.getToRGBMs(), compressor.getToPNGMs(), png.length,
                     ndvi.getComputeTime()));
@@ -264,7 +264,8 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
 //      sendError(ctx, NOT_FOUND);
         long tileSize = png.length;
 
-        HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
+//        HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
+        HttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(png));
         HttpHeaders.setContentLength(response, tileSize);
         response.headers().set(CONTENT_TYPE, "image/png");
 //        setDateAndCacheHeaders(response, file);
@@ -279,12 +280,13 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
         response.headers().set(EXPIRES, "0");
 
         // Write the initial line and the header.
-        ctx.write(response);
+//        ctx.write(response);
 
         // Write the content.
         ChannelFuture sendFileFuture;
         ChannelFuture lastContentFuture;
-        sendFileFuture = ctx.writeAndFlush(new HttpChunkedInput(stream), ctx.newProgressivePromise());
+        sendFileFuture = ctx.writeAndFlush(response, ctx.newProgressivePromise());
+//        sendFileFuture = ctx.writeAndFlush(new HttpChunkedInput(stream), ctx.newProgressivePromise());
         lastContentFuture = sendFileFuture;
 
         sendFileFuture.addListener(new ChannelProgressiveFutureListener() {
